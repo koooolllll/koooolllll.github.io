@@ -20,30 +20,32 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="春风不语，即问本心">
-<meta property="og:type" content="website">
-<meta property="og:title" content="kanaikee-BigData">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Spark 使用手册俗话说，工欲善其事，必先利其器，Spark无疑是现在大数据计算框架中的一颗明星，就像他的名字Spark~  虽然Spark出道许久，现在市场也有更为先进及时的大数据处理框架 Flink ，但是现在从Spark开始认真学习大数据依然是不错的选择，因为其底层思想即承接了他的前辈MR的优势，又紧跟步伐在 SparkStreaming 中支持流批一体数据处理，在某些不是很极端的情况下，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark 使用手册">
+<meta property="og:url" content="http://example.com/2022/08/23/Spark-%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/index.html">
 <meta property="og:site_name" content="kanaikee-BigData">
-<meta property="og:description" content="春风不语，即问本心">
+<meta property="og:description" content="Spark 使用手册俗话说，工欲善其事，必先利其器，Spark无疑是现在大数据计算框架中的一颗明星，就像他的名字Spark~  虽然Spark出道许久，现在市场也有更为先进及时的大数据处理框架 Flink ，但是现在从Spark开始认真学习大数据依然是不错的选择，因为其底层思想即承接了他的前辈MR的优势，又紧跟步伐在 SparkStreaming 中支持流批一体数据处理，在某些不是很极端的情况下，">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-23T13:38:31.000Z">
+<meta property="article:modified_time" content="2022-08-23T13:39:46.832Z">
 <meta property="article:author" content="kanaikee">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/08/23/Spark-%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>kanaikee-BigData</title>
+  <title>Spark 使用手册 | kanaikee-BigData</title>
   
 
 
@@ -161,9 +163,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -179,10 +182,9 @@
       <meta itemprop="name" content="kanaikee-BigData">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/23/Spark-%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">Spark 使用手册</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Spark 使用手册
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -206,7 +208,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Spark-使用手册"><a href="#Spark-使用手册" class="headerlink" title="Spark 使用手册"></a>Spark 使用手册</h1><p>俗话说，工欲善其事，必先利其器，Spark无疑是现在大数据计算框架中的一颗明星，就像他的名字Spark~ </p>
+        <h1 id="Spark-使用手册"><a href="#Spark-使用手册" class="headerlink" title="Spark 使用手册"></a>Spark 使用手册</h1><p>俗话说，工欲善其事，必先利其器，Spark无疑是现在大数据计算框架中的一颗明星，就像他的名字Spark~ </p>
 <p>虽然Spark出道许久，现在市场也有更为先进及时的大数据处理框架 <strong>Flink</strong> ，但是现在从Spark开始认真学习大数据依然是不错的选择，因为其底层思想即承接了他的前辈MR的优势，又紧跟步伐在 <strong>SparkStreaming</strong> 中支持流批一体数据处理，在某些不是很极端的情况下，依然是大数据计算引擎中的中流砥柱</p>
 <p>本文将采用Scala作为Spark学习的唯一代码</p>
 <h2 id="Spark三种连接方式"><a href="#Spark三种连接方式" class="headerlink" title="Spark三种连接方式"></a>Spark三种连接方式</h2><p>对我来说，首先要学会用，才能进一步了解底层原理，所以我们先粗浅说一下如何连接Spark到各种数据源~</p>
@@ -409,91 +411,30 @@
 <p>在BI领域同样的，也会有此类问题，只是问题较少，因为BI分析大多为企业内部展示，可以预先规划时间并处理好数据</p>
 <p>在AI领域，Spark 的ML框架对于大数据学习有着很强的增补，N卡GPU 也可加速 Apache Spark 3 数据科学管道，加快数据处理和模型训练速度，同时大幅降低基础设施成本。ML框架也集成了较为先进的机器学习算法：<strong>逻辑回归，朴素贝叶斯，线性回归，SVM，决策树，LDA，矩阵分解</strong> 等</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/20/hello-world/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="kanaikee">
-      <meta itemprop="description" content="春风不语，即问本心">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="kanaikee-BigData">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-20 15:13:58" itemprop="dateCreated datePublished" datetime="2022-03-20T15:13:58+08:00">2022-03-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/20/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -546,6 +487,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark-%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">Spark 使用手册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark%E4%B8%89%E7%A7%8D%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">Spark三种连接方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Spark-core"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、Spark core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81spark-SQL"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、spark SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-0-DSL%E6%9F%A5%E8%AF%A2%E4%B8%8ESQL%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">2.0. DSL查询与SQL查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-0-1-DSL%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">2.0.1. DSL查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-0-2-SQL%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">2.0.2. SQL查询</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%99%AE%E9%80%9A%E6%96%87%E6%9C%AC"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2.1. 普通文本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-json"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">2.2. json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-parquet"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">2.3. parquet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-jdbc"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">2.4. jdbc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-hive"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">2.5. hive</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81spark-streaming"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、spark streaming</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-streaming-kafka"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">3.2. streaming+kafka</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark-%E5%BA%94%E7%94%A8%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">Spark 应用分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BAETL%EF%BC%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">何为ETL？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ETL%EF%BC%88%E6%8F%90%E5%8F%96%E3%80%81%E8%BD%AC%E6%8D%A2%E3%80%81%E5%8A%A0%E8%BD%BD%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">ETL（提取、转换、加载）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E7%82%BC"><span class="nav-number">3.</span> <span class="nav-text">提炼</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.</span> <span class="nav-text">转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD"><span class="nav-number">5.</span> <span class="nav-text">加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Datastage"><span class="nav-number">5.1.</span> <span class="nav-text">Datastage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Informatica"><span class="nav-number">5.2.</span> <span class="nav-text">Informatica</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kettle"><span class="nav-number">5.3.</span> <span class="nav-text">Kettle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BABI%EF%BC%9F"><span class="nav-number">5.3.1.</span> <span class="nav-text">何为BI？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA-AI-%EF%BC%9F"><span class="nav-number">5.3.2.</span> <span class="nav-text">何为 AI ？</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
