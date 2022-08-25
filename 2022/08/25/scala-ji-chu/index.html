@@ -1,0 +1,1795 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Scala基础, kanaikee">
+    <meta name="description" content="春风不语，即问本心">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Scala基础 | kanaikee</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">kanaikee</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">kanaikee</div>
+        <div class="logo-desc">
+            
+            春风不语，即问本心
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Scala基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Scala/">
+                                <span class="chip bg-color">Scala</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-25
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Scala基础"><a href="#Scala基础" class="headerlink" title="Scala基础"></a>Scala基础</h1><blockquote>
+<p>Scala 是 Scalable Language 的简写，是一门多范式的编程语言</p>
+<p>联邦理工学院洛桑（EPFL）的Martin Odersky于2001年基于Funnel的工作开始设计Scala。</p>
+<p>Funnel是把函数式编程思想和Petri网相结合的一种编程语言。</p>
+<p>Odersky先前的工作是Generic Java和javac（Sun Java编译器）。Java平台的Scala于2003年底&#x2F;2004年初发布。.NET平台的Scala发布于2004年6月。该语言第二个版本，v2.0，发布于2006年3月。</p>
+<p>截至2009年9月，最新版本是版本2.7.6 。Scala 2.8预计的特性包括重写的Scala类库（Scala collections library）、方法的命名参数和默认参数、包对象（package object），以及Continuation。</p>
+<p>2009年4月，Twitter宣布他们已经把大部分后端程序从Ruby迁移到Scala，其余部分也打算要迁移。此外， Wattzon已经公开宣称，其整个平台都已经是基于Scala基础设施编写的。</p>
+</blockquote>
+<p><strong>本文主要引用了 <a target="_blank" rel="noopener" href="https://www.runoob.com/scala/scala-tutorial.html">菜鸟教程</a> 对于基础部分的详解，部分可能有省略，也有部分加入了自己的见解，主要是为了见证自己学习的道路~</strong></p>
+<p>在加入本人见解的部分，会使用 <code>*</code> 标明主题</p>
+<p><strong>在本文中，只着重讨论scala与java的不同之处~</strong></p>
+<h2 id="Scala-特性"><a href="#Scala-特性" class="headerlink" title="Scala 特性"></a>Scala 特性</h2><h3 id="面向对象特性"><a href="#面向对象特性" class="headerlink" title="面向对象特性"></a>面向对象特性</h3><p>Scala是一种纯面向对象的语言，<strong>每个值都是对象</strong>。<strong>对象的数据类型以及行为由类和特质描述</strong>。</p>
+<p>类抽象机制的扩展有两种途径：<strong>一种途径是子类继承，另一种途径是灵活的混入机制。</strong>这两种途径能避免多重继承的种种问题。</p>
+<h3 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h3><p>Scala也是一种<strong>函数式语言</strong>，其<strong>函数也能当成值</strong>来使用。Scala提供了轻量级的语法用以定义匿名函数，支持高阶函数，允许嵌套多层函数，并支持柯里化。Scala的case class及其内置的模式匹配相当于函数式编程语言中常用的代数类型。</p>
+<p>更进一步，程序员可以利用Scala的模式匹配，编写类似正则表达式的代码处理XML数据。</p>
+<h3 id="静态类型"><a href="#静态类型" class="headerlink" title="静态类型"></a>静态类型</h3><p>Scala具备类型系统，通过编译时检查，保证代码的安全性和一致性。类型系统具体支持以下特性：</p>
+<blockquote>
+<ul>
+<li>泛型类</li>
+<li>协变和逆变</li>
+<li>标注</li>
+<li>类型参数的上下限约束</li>
+<li>把类别和抽象类型作为对象成员</li>
+<li>复合类型</li>
+<li>引用自己时显式指定类型</li>
+<li>视图</li>
+<li>多态方法</li>
+</ul>
+</blockquote>
+<h3 id="扩展性"><a href="#扩展性" class="headerlink" title="扩展性"></a>扩展性</h3><p>Scala的设计秉承一项事实，即在实践中，某个领域特定的应用程序开发往往需要特定于该领域的语言扩展。Scala提供了许多独特的语言机制，可以以库的形式轻易无缝添加新的语言结构：</p>
+<blockquote>
+<ul>
+<li>任何方法可用作前缀或后缀操作符</li>
+<li>可以根据预期类型自动构造闭包。</li>
+</ul>
+</blockquote>
+<h3 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h3><p><strong>Scala使用Actor作为其并发模型，Actor是类似线程的实体，通过邮箱发收消息。</strong>Actor可以复用线程，因此可以在程序中可以使用数百万个Actor,而线程只能创建数千个。在2.10之后的版本中，使用Akka作为其默认Actor实现。</p>
+<h2 id="Scala-数据类型"><a href="#Scala-数据类型" class="headerlink" title="Scala 数据类型"></a>Scala 数据类型</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型*"></a>数据类型*</h3><p>Scala 与 Java 有着相同的数据类型，下表列出了 Scala 支持的数据类型：</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Byte</td>
+<td align="left">8位有符号补码整数。数值区间为 -128 到 127</td>
+</tr>
+<tr>
+<td align="left">Short</td>
+<td align="left">16位有符号补码整数。数值区间为 -32768 到 32767</td>
+</tr>
+<tr>
+<td align="left">Int</td>
+<td align="left">32位有符号补码整数。数值区间为 -2147483648 到 2147483647</td>
+</tr>
+<tr>
+<td align="left">Long</td>
+<td align="left">64位有符号补码整数。数值区间为 -9223372036854775808 到 9223372036854775807</td>
+</tr>
+<tr>
+<td align="left">Float</td>
+<td align="left">32 位, IEEE 754 标准的单精度浮点数</td>
+</tr>
+<tr>
+<td align="left">Double</td>
+<td align="left">64 位 IEEE 754 标准的双精度浮点数</td>
+</tr>
+<tr>
+<td align="left">Char</td>
+<td align="left">16位无符号Unicode字符, 区间值为 U+0000 到 U+FFFF</td>
+</tr>
+<tr>
+<td align="left">String</td>
+<td align="left">字符序列</td>
+</tr>
+<tr>
+<td align="left">Boolean</td>
+<td align="left">true或false</td>
+</tr>
+<tr>
+<td align="left">Unit</td>
+<td align="left">表示无值，和其他语言中void等同。用作不返回任何结果的方法的结果类型。Unit只有一个实例值，写成()。</td>
+</tr>
+<tr>
+<td align="left">Null</td>
+<td align="left">null 或空引用</td>
+</tr>
+<tr>
+<td align="left">Nothing</td>
+<td align="left">Nothing类型在Scala的类层级的最底端；它是任何其他类型的子类型。</td>
+</tr>
+<tr>
+<td align="left">Any</td>
+<td align="left">Any是所有其他类的超类</td>
+</tr>
+<tr>
+<td align="left">AnyRef</td>
+<td align="left">AnyRef类是Scala里所有引用类(reference class)的基类</td>
+</tr>
+</tbody></table>
+<p>上表中列出的数据类型都是<strong>对象</strong>，<strong>也就是说scala没有java中的原生类型</strong>。<strong>在scala是可以对数字等基础类型调用方法的</strong>。</p>
+<p>例如</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">// Int对象的.+方法</span>
+<span class="token keyword">val</span> data1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span>+<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+println<span class="token punctuation">(</span>data1<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 相当于运算符重载 两个Int对象相加</span>
+<span class="token keyword">val</span> data2 <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token number">1</span>
+println<span class="token punctuation">(</span>data2<span class="token punctuation">)</span>
+</code></pre>
+<p>结果</p>
+<pre class=" language-bash"><code class="language-bash">2
+2
+进程已结束,退出代码0
+</code></pre>
+<h3 id="多行字符串的表示方法"><a href="#多行字符串的表示方法" class="headerlink" title="多行字符串的表示方法"></a>多行字符串的表示方法</h3><p>多行字符串用三个双引号来表示分隔符，格式为：**””” … “””**。</p>
+<p>实例如下：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> foo <span class="token operator">=</span> <span class="token string">"""
+www.kanaikee.com
+"""</span>
+</code></pre>
+<h2 id="Scala-基础语法"><a href="#Scala-基础语法" class="headerlink" title="Scala 基础语法"></a>Scala 基础语法</h2><p>在学之前，需要明白scala中几个重要特性</p>
+<h3 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义*"></a>变量定义*</h3><p>使用关键词 <code>var</code> 声明变量，使用关键词 <code>val</code> 声明常量。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">// val 定义不可变对象 常量</span>
+<span class="token keyword">val</span> immutable <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token comment" spellcheck="true">// var 定义可变对象 变量</span>
+<span class="token keyword">var</span> variable <span class="token operator">=</span> <span class="token number">0</span>
+</code></pre>
+<blockquote>
+<p><strong>scala编译器会自动推断变量类型</strong>，但是，<strong>如果没有赋初值，那么编译器就无法判断数据类型，因此会报错</strong></p>
+<p>所以，如果在没有指明数据类型的情况下声明变量或常量必须要给出其初始值，否则将会报错。</p>
+</blockquote>
+<h3 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义*"></a>函数定义*</h3><pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">// 主函数定义</span>
+<span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 普通函数定义</span>
+<span class="token keyword">def</span> fun<span class="token punctuation">(</span>num<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    num <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>如上所示，<strong>scala函数并无<code>return</code>就可自动返回最后一行代码所对应的对象</strong></p>
+<p>上面普通函数定义可以简化为如下所示</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">def</span> fun<span class="token punctuation">(</span>num<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span> num <span class="token operator">+</span> <span class="token number">1</span>
+</code></pre>
+<p>即<strong>函数返回值类型</strong>及 <code>&#123;&#125;</code> 都可省略，此处也说明了<strong>scala一切皆对象</strong></p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> function0<span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> fun<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> fun<span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> x <span class="token operator">+</span> <span class="token number">1</span>
+</code></pre>
+<h3 id="包定义"><a href="#包定义" class="headerlink" title="包定义"></a>包定义</h3><p>Scala 使用 <code>package</code> 关键字定义包，在Scala将代码定义到某个包中有两种方式：</p>
+<p>第一种方法和 Java 一样，在文件的头定义包名，这种方法就后续所有代码都放在该包中。 比如：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">package</span> com<span class="token punctuation">.</span>kanaikee
+<span class="token keyword">class</span> HelloWorld
+</code></pre>
+<p>第二种方法有些类似 C#，如：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">package</span> com<span class="token punctuation">.</span>kenaikee <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">class</span> HelloWorld 
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>第二种方法，可以在一个文件中定义多个包。</p>
+<h3 id="Null-值"><a href="#Null-值" class="headerlink" title="Null 值"></a>Null 值</h3><p>空值是 <code>scala.Null</code> 类型。</p>
+<p><code>scala.Null</code>和<code>scala.Nothing</code>是用统一的方式处理Scala面向对象类型系统的某些**”边界情况”**的特殊类型。</p>
+<p><code>Null</code>类是null引用对象的类型，<strong>它是每个引用类（继承自<code>AnyRef</code>的类）的子类</strong>。Null不兼容值类型。</p>
+<h2 id="Scala-访问修饰符"><a href="#Scala-访问修饰符" class="headerlink" title="Scala 访问修饰符"></a>Scala 访问修饰符</h2><p>Scala 访问修饰符基本和Java的一样，分别有：<code>private</code>，<code>protected</code>，<code>public</code>。</p>
+<p><strong>如果没有指定访问修饰符，默认情况下，Scala 对象的访问级别都是 <code>public</code>。</strong></p>
+<p><strong>Scala 中的 <code>private</code> 限定符，比 Java 更严格，在嵌套类情况下，外层类甚至不能访问被嵌套类的私有成员。</strong></p>
+<h3 id="私有-Private-成员"><a href="#私有-Private-成员" class="headerlink" title="私有(Private)成员"></a>私有(Private)成员</h3><p>用 private 关键字修饰，带有此标记的成员仅在包含了成员定义的类或对象内部可见，同样的规则还适用内部类。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">class</span> Outer<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">class</span> Inner<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">def</span> printf<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      println<span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> InnerMost<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 正确</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">(</span><span class="token keyword">new</span> Inner<span class="token punctuation">)</span><span class="token punctuation">.</span>printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//错误</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="保护-Protected-成员"><a href="#保护-Protected-成员" class="headerlink" title="保护(Protected)成员"></a>保护(Protected)成员</h3><p>在 scala 中，对保护（Protected）成员的访问比 java 更严格一些。因为它只允许保护成员在定义了该成员的的类的子类中被访问。而在java中，用 protected关键字修饰的成员，除了定义了该成员的类的子类可以访问，同一个包里的其他类也可以进行访问。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">package</span> com<span class="token punctuation">.</span>kanaikee
+
+<span class="token keyword">class</span> Super <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">protected</span> <span class="token keyword">def</span> printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    println<span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> Sub <span class="token keyword">extends</span> Super <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  printf<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> Other <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">(</span><span class="token keyword">new</span> Super<span class="token punctuation">)</span><span class="token punctuation">.</span>printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//错误</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="公共-Public-成员"><a href="#公共-Public-成员" class="headerlink" title="公共(Public)成员"></a>公共(Public)成员</h3><p>Scala 中，如果没有指定任何的修饰符，则默认为 public。这样的成员在任何地方都可以被访问。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">class</span> Outer <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">class</span> Inner <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">def</span> printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> println<span class="token punctuation">(</span><span class="token string">"f"</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token keyword">class</span> InnerMost <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+         printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 正确</span>
+      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token punctuation">(</span><span class="token keyword">new</span> Inner<span class="token punctuation">)</span><span class="token punctuation">.</span>printf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 正确因为 f() 是 public</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="作用域保护"><a href="#作用域保护" class="headerlink" title="作用域保护"></a>作用域保护</h3><p>Scala中，访问修饰符可以通过使用限定词强调。格式为:</p>
+<pre class=" language-scala"><code class="language-scala"> <span class="token keyword">private</span><span class="token punctuation">[</span>x<span class="token punctuation">]</span> 
+ <span class="token comment" spellcheck="true">// 或 </span>
+ <span class="token keyword">protected</span><span class="token punctuation">[</span>x<span class="token punctuation">]</span>
+</code></pre>
+<blockquote>
+<p>这里的x指代某个<strong>所属的包、类或单例对象</strong>。<strong>如果写成private[x],读作”这个成员除了对[…]中的类或[…]中的包中的类及它们的伴生对像可见外，对其它所有类都是private</strong>。</p>
+<p>这种技巧在横跨了若干包的大型项目中非常有用，它允许你定义一些在你项目的若干子包中可见但对于项目外部的客户却始终不可见的东西。</p>
+</blockquote>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">package</span> com<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">package</span> scala<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span><span class="token punctuation">[</span>com<span class="token punctuation">]</span> <span class="token keyword">class</span> Navigator<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">protected</span><span class="token punctuation">[</span>scala<span class="token punctuation">]</span> <span class="token keyword">def</span> useStarChart<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token keyword">class</span> LegOfJourney<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span><span class="token punctuation">[</span>Navigator<span class="token punctuation">]</span> <span class="token keyword">val</span> distance <span class="token operator">=</span> <span class="token number">100</span>
+      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      <span class="token keyword">private</span><span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">]</span> <span class="token keyword">var</span> speed <span class="token operator">=</span> <span class="token number">200</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token keyword">package</span> kanaikee<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">import</span> scala<span class="token punctuation">.</span>_
+    <span class="token keyword">object</span> Vehicle<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">private</span><span class="token punctuation">[</span>kanaikee<span class="token punctuation">]</span> <span class="token keyword">val</span> guide <span class="token operator">=</span> <span class="token keyword">new</span> Navigator
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>上述例子中，类 Navigator 被标记为 private[bobsrockets] 就是说这个类对包含在 bobsrockets 包里的所有的类和对象可见。</p>
+<p>比如说，从 Vehicle 对象里对 Navigator 的访问是被允许的，因为对象 Vehicle 包含在包 launch 中，而 launch 包在 bobsrockets 中，相反，所有在包 bobsrockets 之外的代码都不能访问类 Navigator。</p>
+</blockquote>
+<h2 id="Scala-运算符"><a href="#Scala-运算符" class="headerlink" title="Scala 运算符*"></a>Scala 运算符*</h2><p><strong>运算符在scala中其实也是一种对象</strong></p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> data1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span>+<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">val</span> data2 <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token comment" spellcheck="true">// data1 == data2 == 2</span>
+<span class="token keyword">val</span> data3 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">.</span>><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">val</span> data4 <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">></span> <span class="token number">2</span>
+<span class="token comment" spellcheck="true">// data3 == data4 == false</span>
+</code></pre>
+<p>scala的运算符操作其实类似于<strong>运算符重载</strong>，scala底层是在每个类型的底层封装了这些方法，使得可以像函数调用那样调用运算符</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/** Returns the sum of this value and `x`. */</span>
+<span class="token keyword">def</span> <span class="token operator">+</span><span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Byte</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span>
+<span class="token comment" spellcheck="true">/** Returns the sum of this value and `x`. */</span>
+<span class="token keyword">def</span> <span class="token operator">+</span><span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Short</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span>
+<span class="token comment" spellcheck="true">/** Returns the sum of this value and `x`. */</span>
+<span class="token keyword">def</span> <span class="token operator">+</span><span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Char</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span>
+<span class="token comment" spellcheck="true">/** Returns the sum of this value and `x`. */</span>
+<span class="token keyword">def</span> <span class="token operator">+</span><span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span>
+<span class="token comment" spellcheck="true">/** Returns the sum of this value and `x`. */</span>
+<span class="token keyword">def</span> <span class="token operator">+</span><span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Long</span>
+<span class="token comment" spellcheck="true">/** Returns the sum of this value and `x`. */</span>
+<span class="token keyword">def</span> <span class="token operator">+</span><span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Float</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Float</span>
+</code></pre>
+<blockquote>
+<p>上面为 <code>Int</code> 类型里面所封装的一部分 <code>+</code> 函数</p>
+<p>而 Scala 一切皆对象，那么函数自然为对象，那么运算符函数自然也是一种对象</p>
+</blockquote>
+<h2 id="Scala-方法和函数"><a href="#Scala-方法和函数" class="headerlink" title="Scala 方法和函数"></a>Scala 方法和函数</h2><h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍*"></a>概念介绍*</h3><p>在上文可知， Scala 中，函数的命名是以 <code>def</code> 开始，但是 <code>val</code> 同样能定义函数，只是前者应该叫方法，后者应该叫函数，但是在日常开发中，不必拘泥与起叫法，知道其区别及用法就够了</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> fun1 <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> b<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token keyword">=></span> a <span class="token operator">+</span> b
+<span class="token comment" spellcheck="true">// 打印出的是此lambda表达式在编译过后的类型名称</span>
+println<span class="token punctuation">(</span>fun1<span class="token punctuation">)</span>
+println<span class="token punctuation">(</span>fun1<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> fun2<span class="token punctuation">(</span>a<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> b<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span> a <span class="token operator">+</span> b
+println<span class="token punctuation">(</span>fun2<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">com.scala.kanaikee.Test$$<span class="token variable">$Lambda</span><span class="token variable">$1</span>/12209492@65e2dbf3
+2
+2
+
+进程已结束,退出代码0
+</code></pre>
+<p>由此可看出，函数和方法二者在语义上的区别很小。</p>
+<blockquote>
+<ul>
+<li>方法是类的一部分，而函数是一个对象可以赋值给一个变量。换句话来说在类中定义的函数即是方法。</li>
+<li>方法跟 Java 的类似，方法是组成类的一部分。</li>
+<li>函数是一个完整的对象，Scala 中的函数其实就是继承了 Trait 的类的对象。</li>
+<li>使用 <strong>val</strong> 语句可以定义函数，<strong>def</strong> 语句定义方法。</li>
+</ul>
+</blockquote>
+<p>scala函数还有其他一些特性</p>
+<h3 id="传值调用和传名调用"><a href="#传值调用和传名调用" class="headerlink" title="传值调用和传名调用*"></a>传值调用和传名调用*</h3><ul>
+<li><strong>传名参数 call-by-name</strong></li>
+<li><strong>传值参数 call-by-value</strong></li>
+</ul>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> count <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    delayed1<span class="token punctuation">(</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    println<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    count <span class="token operator">=</span> <span class="token number">0</span>
+    delayed2<span class="token punctuation">(</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">def</span> time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Long</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+    println<span class="token punctuation">(</span><span class="token string">"time() 方法 第 "</span> <span class="token operator">+</span> count <span class="token operator">+</span> <span class="token string">" 调用"</span><span class="token punctuation">)</span>
+    System<span class="token punctuation">.</span>nanoTime
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 传名调用
+   * 
+   * @param t
+   * @return
+   */</span>
+  <span class="token keyword">def</span> delayed1<span class="token punctuation">(</span> t<span class="token operator">:</span> <span class="token keyword">=></span> <span class="token builtin">Long</span> <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Long</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    println<span class="token punctuation">(</span><span class="token string">"在 delayed1() 方法内"</span><span class="token punctuation">)</span>
+    println<span class="token punctuation">(</span><span class="token string">"参数： "</span> <span class="token operator">+</span> t<span class="token punctuation">)</span>
+    t
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 传值调用
+   * 
+   * @param t
+   * @return
+   */</span>
+  <span class="token keyword">def</span> delayed2<span class="token punctuation">(</span> t<span class="token operator">:</span> <span class="token builtin">Long</span> <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Long</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    println<span class="token punctuation">(</span><span class="token string">"在 delayed2() 方法内"</span><span class="token punctuation">)</span>
+    println<span class="token punctuation">(</span><span class="token string">"参数： "</span> <span class="token operator">+</span> t<span class="token punctuation">)</span>
+    t
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">在 delayed1<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法内
+time<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法 第 1 调用
+参数： 547506285523100
+time<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法 第 2 调用
+
+time<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法 第 1 调用
+在 delayed2<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法内
+参数： 547506285589200
+
+进程已结束,退出代码0
+</code></pre>
+<blockquote>
+<p>由此可以看出，传值调用是在用到函数的地方只有一次计算，但是传名调用是在用到传入值的时候，才会计算相应的函数，并且不会保存计算结果，下次用到时还会重新计算，所以传入参数就变得不是那么固定，因为每次都会重新计算一遍</p>
+</blockquote>
+<h3 id="指定函数参数名"><a href="#指定函数参数名" class="headerlink" title="指定函数参数名"></a>指定函数参数名</h3><p>一般情况下函数调用参数，就按照函数定义时的参数顺序一个个传递。但是我们也可以通过指定函数参数名，并且不需要按照顺序向函数传递参数，实例如下</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        printInt<span class="token punctuation">(</span>b<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> a<span class="token operator">=</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> printInt<span class="token punctuation">(</span> a<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">,</span> b<span class="token operator">:</span><span class="token builtin">Int</span> <span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      println<span class="token punctuation">(</span><span class="token string">"Value of a : "</span> <span class="token operator">+</span> a <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      println<span class="token punctuation">(</span><span class="token string">"Value of b : "</span> <span class="token operator">+</span> b <span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">Value of a <span class="token keyword">:</span>  7
+Value of b <span class="token keyword">:</span>  5
+</code></pre>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>Scala 允许你指明函数的最后一个参数可以是重复的，即我们不需要指定函数参数的个数，可以向函数传入可变长度参数列表。</p>
+<p>Scala 通过在参数的类型之后放一个星号来设置可变参数(可重复的参数)。</p>
+<p>这点 Scala 和 Java 类似</p>
+<p>例如：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        printStrings<span class="token punctuation">(</span><span class="token string">"Runoob"</span><span class="token punctuation">,</span> <span class="token string">"Scala"</span><span class="token punctuation">,</span> <span class="token string">"Python"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> printStrings<span class="token punctuation">(</span> args<span class="token operator">:</span><span class="token builtin">String</span><span class="token operator">*</span> <span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> i <span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span> arg <span class="token keyword">&lt;-</span> args <span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+         println<span class="token punctuation">(</span><span class="token string">"Arg value["</span> <span class="token operator">+</span> i <span class="token operator">+</span> <span class="token string">"] = "</span> <span class="token operator">+</span> arg <span class="token punctuation">)</span><span class="token punctuation">;</span>
+         i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">Arg value<span class="token punctuation">[</span>0<span class="token punctuation">]</span> <span class="token operator">=</span> Runoob
+Arg value<span class="token punctuation">[</span>1<span class="token punctuation">]</span> <span class="token operator">=</span> Scala
+Arg value<span class="token punctuation">[</span>2<span class="token punctuation">]</span> <span class="token operator">=</span> Python
+</code></pre>
+<h3 id="默认参数值"><a href="#默认参数值" class="headerlink" title="默认参数值"></a>默认参数值</h3><p>Scala 可以为函数参数指定默认参数值，使用了默认参数，你在调用函数的过程中可以不需要传递参数，这时函数就会调用它的默认参数值，如果传递了参数，则传递值会取代默认值。实例如下：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        println<span class="token punctuation">(</span> <span class="token string">"返回值 : "</span> <span class="token operator">+</span> addInt<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> addInt<span class="token punctuation">(</span> a<span class="token operator">:</span><span class="token builtin">Int</span><span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> b<span class="token operator">:</span><span class="token builtin">Int</span><span class="token operator">=</span><span class="token number">7</span> <span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> sum<span class="token operator">:</span><span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token number">0</span>
+      sum <span class="token operator">=</span> a <span class="token operator">+</span> b
+
+      <span class="token keyword">return</span> sum
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">返回值 <span class="token keyword">:</span> 12
+</code></pre>
+<h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h3><p>高阶函数是指使用其他函数作为参数、或者返回一个函数作为结果的函数。在Scala中函数是“一等公民”，所以允许定义高阶函数。这里的术语可能有点让人困惑，我们约定，使用函数值作为参数，或者返回值为函数值的“函数”和“方法”，均称之为“高阶函数”。</p>
+<p><strong>高阶函数（Higher-Order Function）就是操作其他函数的函数。</strong></p>
+<p>Scala 中允许使用高阶函数, 高阶函数可以使用其他函数作为参数，或者使用函数作为输出结果。</p>
+<p>以下实例中，apply() 函数使用了另外一个函数 f 和 值 v 作为参数，而函数 f 又调用了参数 v：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    println<span class="token punctuation">(</span>apply<span class="token punctuation">(</span>layout<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// 函数 f 和 值 v 作为参数，而函数 f 又调用了参数 v</span>
+  <span class="token keyword">def</span> apply<span class="token punctuation">(</span>f<span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token keyword">=></span> <span class="token builtin">String</span><span class="token punctuation">,</span> v<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">String</span> <span class="token operator">=</span> f<span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> layout<span class="token punctuation">[</span>A<span class="token punctuation">]</span><span class="token punctuation">(</span>x<span class="token operator">:</span> A<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">String</span> <span class="token operator">=</span> <span class="token string">"["</span> <span class="token operator">+</span> x <span class="token operator">+</span> <span class="token string">"]"</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>10<span class="token punctuation">]</span>
+</code></pre>
+<p><em>高阶函数只在此提及一部分概念，后面会专门讲到scala高阶函数的使用技巧</em></p>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p>Scala 中定义匿名函数的语法很简单，箭头左边是参数列表，右边是函数体。</p>
+<p>使用匿名函数后，我们的代码变得更简洁了。</p>
+<p>下面的表达式就定义了一个接受一个Int类型输入参数的匿名函数:</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">var</span> inc <span class="token operator">=</span> <span class="token punctuation">(</span>x<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token keyword">=></span> x<span class="token operator">+</span><span class="token number">1</span>
+</code></pre>
+<p>上述定义的匿名函数，其实是下面这种写法的简写：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">def</span> add2 <span class="token operator">=</span> <span class="token keyword">new</span> Function1<span class="token punctuation">[</span><span class="token builtin">Int</span><span class="token punctuation">,</span><span class="token builtin">Int</span><span class="token punctuation">]</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>  
+    <span class="token keyword">def</span> apply<span class="token punctuation">(</span>x<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span><span class="token builtin">Int</span> <span class="token operator">=</span> x<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>  
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> 
+</code></pre>
+<p>以上实例的 inc 现在可作为一个函数，使用方式如下：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">var</span> x <span class="token operator">=</span> inc<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span>
+</code></pre>
+<p>同样我们可以在匿名函数中定义多个参数：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">var</span> mul <span class="token operator">=</span> <span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> y<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token keyword">=></span> x<span class="token operator">*</span>y
+</code></pre>
+<p>mul 现在可作为一个函数，使用方式如下：</p>
+<pre class=" language-scala"><code class="language-scala">println<span class="token punctuation">(</span>mul<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>我们也可以不给匿名函数设置参数，如下所示：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">var</span> userDir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">=></span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> System<span class="token punctuation">.</span>getProperty<span class="token punctuation">(</span><span class="token string">"user.dir"</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>userDir 现在可作为一个函数，使用方式如下：</p>
+<pre class=" language-scala"><code class="language-scala">println<span class="token punctuation">(</span> userDir<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+</code></pre>
+<p>实例</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Demo <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   println<span class="token punctuation">(</span> <span class="token string">"multiplier(1) value = "</span> <span class="token operator">+</span>  multiplier<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   println<span class="token punctuation">(</span> <span class="token string">"multiplier(2) value = "</span> <span class="token operator">+</span>  multiplier<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> factor <span class="token operator">=</span> <span class="token number">3</span>
+  <span class="token keyword">val</span> multiplier <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token keyword">=></span> i <span class="token operator">*</span> factor
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>输出结果为：</p>
+<pre class=" language-scala"><code class="language-scala">multiplier<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> value <span class="token operator">=</span> <span class="token number">3</span>
+multiplier<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> value <span class="token operator">=</span> <span class="token number">6</span>
+</code></pre>
+<h3 id="函数嵌套"><a href="#函数嵌套" class="headerlink" title="函数嵌套"></a>函数嵌套</h3><p>我们可以在 Scala 函数内定义函数，定义在函数内的函数称之为局部函数。</p>
+<p>以下实例我们实现阶乘运算，并使用内嵌函数：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      println<span class="token punctuation">(</span> factorial<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+      println<span class="token punctuation">(</span> factorial<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+      println<span class="token punctuation">(</span> factorial<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+      println<span class="token punctuation">(</span> factorial<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">def</span> factorial<span class="token punctuation">(</span>i<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">def</span> fact<span class="token punctuation">(</span>i<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> accumulator<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Int</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            accumulator
+         <span class="token keyword">else</span>
+            fact<span class="token punctuation">(</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> i <span class="token operator">*</span> accumulator<span class="token punctuation">)</span>
+      <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+      fact<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">1
+1
+2
+6
+</code></pre>
+<h3 id="偏应用函数"><a href="#偏应用函数" class="headerlink" title="偏应用函数"></a>偏应用函数</h3><p><strong>Scala 偏应用函数是一种表达式，你不需要提供函数需要的所有参数，只需要提供部分，或不提供所需参数。</strong></p>
+<p>如下实例，我们打印日志信息：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date
+
+<span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">val</span> date <span class="token operator">=</span> <span class="token keyword">new</span> Date
+      log<span class="token punctuation">(</span>date<span class="token punctuation">,</span> <span class="token string">"message1"</span> <span class="token punctuation">)</span>
+      Thread<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+      log<span class="token punctuation">(</span>date<span class="token punctuation">,</span> <span class="token string">"message2"</span> <span class="token punctuation">)</span>
+      Thread<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+      log<span class="token punctuation">(</span>date<span class="token punctuation">,</span> <span class="token string">"message3"</span> <span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">def</span> log<span class="token punctuation">(</span>date<span class="token operator">:</span> Date<span class="token punctuation">,</span> message<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span>  <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+     println<span class="token punctuation">(</span>date <span class="token operator">+</span> <span class="token string">"----"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">Thu Aug 25 18:59:44 CST 2022----message1
+Thu Aug 25 18:59:44 CST 2022----message2
+Thu Aug 25 18:59:44 CST 2022----message3
+</code></pre>
+<p>实例中，log() 方法接收两个参数：date 和 message。我们在程序执行时调用了三次，参数 date 值都相同，message 不同。</p>
+<p>我们可以使用偏应用函数优化以上方法，绑定第一个 date 参数，第二个参数使用下划线(_)替换缺失的参数列表，并把这个新的函数值的索引的赋给变量。以上实例修改如下：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date
+
+<span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">val</span> date <span class="token operator">=</span> <span class="token keyword">new</span> Date
+      <span class="token keyword">val</span> logWithDateBound <span class="token operator">=</span> log<span class="token punctuation">(</span>date<span class="token punctuation">,</span> _ <span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span>
+
+      logWithDateBound<span class="token punctuation">(</span><span class="token string">"message1"</span> <span class="token punctuation">)</span>
+      Thread<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+      logWithDateBound<span class="token punctuation">(</span><span class="token string">"message2"</span> <span class="token punctuation">)</span>
+      Thread<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+      logWithDateBound<span class="token punctuation">(</span><span class="token string">"message3"</span> <span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">def</span> log<span class="token punctuation">(</span>date<span class="token operator">:</span> Date<span class="token punctuation">,</span> message<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span>  <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+     println<span class="token punctuation">(</span>date <span class="token operator">+</span> <span class="token string">"----"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">Thu Aug 25 18:59:45 CST 2022----message1
+Thu Aug 25 18:59:45 CST 2022----message2
+Thu Aug 25 18:59:45 CST 2022----message3
+</code></pre>
+<h3 id="函数柯里化-Currying"><a href="#函数柯里化-Currying" class="headerlink" title="函数柯里化(Currying)"></a>函数柯里化(Currying)</h3><p><strong>柯里化(Currying)指的是将原来接受两个参数的函数变成新的接受一个参数的函数的过程。新的函数返回一个以原有第二个参数为参数的函数。</strong></p>
+<p>实例</p>
+<p>首先我们定义一个函数:</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">def</span> add<span class="token punctuation">(</span>x<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">,</span>y<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">=</span>x<span class="token operator">+</span>y
+</code></pre>
+<p>那么我们应用的时候，应该是这样用：add(1,2)</p>
+<p>现在我们把这个函数变一下形：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">def</span> add<span class="token punctuation">(</span>x<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>y<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span> x <span class="token operator">+</span> y
+</code></pre>
+<p>那么我们应用的时候，应该是这样用：add(1)(2),最后结果都一样是3，这种方式（过程）就叫柯里化。</p>
+<p>实现过程</p>
+<p>add(1)(2) 实际上是依次调用两个普通函数（非柯里化函数），第一次调用使用一个参数 x，返回一个函数类型的值，第二次使用参数y调用这个函数类型的值。</p>
+<p>实质上最先演变成这样一个方法：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">def</span> add<span class="token punctuation">(</span>x<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token punctuation">(</span>y<span class="token operator">:</span><span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token keyword">=></span>x<span class="token operator">+</span>y
+</code></pre>
+<p>那么这个函数是什么意思呢？ 接收一个x为参数，返回一个匿名函数，该匿名函数的定义是：接收一个Int型参数y，函数体为x+y。现在我们来对这个方法进行调用。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> result <span class="token operator">=</span> add<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> 
+</code></pre>
+<p>返回一个result，那result的值应该是一个匿名函数：(y:Int)&#x3D;&gt;1+y</p>
+<p>所以为了得到结果，我们继续调用result。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> sum <span class="token operator">=</span> result<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+</code></pre>
+<p>最后打印出来的结果就是3。</p>
+<p>完整实例</p>
+<p>下面是一个完整实例：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">object</span> Test <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+   <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token keyword">val</span> str1<span class="token operator">:</span><span class="token builtin">String</span> <span class="token operator">=</span> <span class="token string">"Hello, "</span>
+      <span class="token keyword">val</span> str2<span class="token operator">:</span><span class="token builtin">String</span> <span class="token operator">=</span> <span class="token string">"Scala!"</span>
+      println<span class="token punctuation">(</span> <span class="token string">"str1 + str2 = "</span> <span class="token operator">+</span>  strcat<span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">(</span>str2<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">def</span> strCat<span class="token punctuation">(</span>s1<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span><span class="token punctuation">(</span>s2<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">String</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      s1 <span class="token operator">+</span> s2
+   <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行以上代码，输出结果为：</p>
+<pre class=" language-bash"><code class="language-bash">str1 + str2 <span class="token operator">=</span> Hello, Scala<span class="token operator">!</span>
+</code></pre>
+<p>上面<code>strCat()()</code>函数也可合成一个完整函数</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">def</span> strCat1<span class="token punctuation">(</span>s1<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span> s2<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">String</span> <span class="token operator">=</span> strCat<span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span>
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">kanaikee</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://kanaikee.com/2022/08/25/scala-ji-chu/">http://kanaikee.com/2022/08/25/scala-ji-chu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">kanaikee</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Scala/">
+                                    <span class="chip bg-color">Scala</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/08/25/scala-ji-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Scala基础">
+                        
+                        <span class="card-title">Scala基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            kanaikee
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Scala/">
+                        <span class="chip bg-color">Scala</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/25/scala-lei/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Scala类">
+                        
+                        <span class="card-title">Scala类</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            kanaikee
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Scala/">
+                        <span class="chip bg-color">Scala</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">kanaikee</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="<https://github.com/koooolllll>" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+<!-- 
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+ -->
+
+<!--  -->
+
+<!--  -->
+
+<!-- 
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+ -->
+
+<!-- 
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+ -->
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
