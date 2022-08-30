@@ -1,0 +1,1351 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Spark应用分析, kanaikee">
+    <meta name="description" content="春风不语，即问本心">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Spark应用分析 | kanaikee</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">kanaikee</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">kanaikee</div>
+        <div class="logo-desc">
+            
+            春风不语，即问本心
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Spark应用分析</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Spark%E6%9D%82%E8%B0%88/">
+                                <span class="chip bg-color">Spark杂谈</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-30
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Spark-应用分析"><a href="#Spark-应用分析" class="headerlink" title="Spark 应用分析"></a>Spark 应用分析</h2><p>Spark 作为一个流批一体的大数据处理框架，他的作用无外乎三个：</p>
+<blockquote>
+<ol>
+<li>大数据处理 ETL (Data → Data)</li>
+<li>大数据分析 BI (Data → Dashboard)</li>
+<li>机器学习 AI (Data → Model)</li>
+</ol>
+</blockquote>
+<h3 id="何为ETL？"><a href="#何为ETL？" class="headerlink" title="何为ETL？"></a>何为ETL？</h3><p>这里引用 <a target="_blank" rel="noopener" href="https://www.ibm.com/cloud/learn/etl">IBM</a> 的解释</p>
+<blockquote>
+<p><strong>ETL（提取、转换、加载）</strong></p>
+<p>ETL 是一个从多个来源提取、转换和加载数据到数据仓库或其他统一数据存储库的过程。</p>
+<p>ETL 代表提取、转换和加载，是一种数据集成过程，它将来自多个数据源的数据组合到一个单一的、一致的数据存储中，然后再加载到 <a target="_blank" rel="noopener" href="https://www.ibm.com/cloud/learn/data-warehouse">数据仓库</a> 或其他目标系统中。</p>
+<p>随着数据库在 1970 年代的普及，ETL 被引入作为集成和加载数据以进行计算和分析的过程，最终成为数据仓库项目处理数据的主要方法。</p>
+<p>ETL 为<strong>数据分析</strong>和<strong>机器学习</strong>工作流提供了基础。通过一系列业务规则，ETL 以解决特定商业智能需求的方式清理和组织数据，例如<strong>月度报告</strong>，但它还可以处理更高级的分析，从而改善后端流程或最终用户体验。组织通常使用 ETL 来： </p>
+<ul>
+<li><strong>从遗留系统中提取数据</strong></li>
+<li><strong>清理数据以提高数据质量并建立一致性</strong></li>
+<li><strong>将数据加载到目标数据库</strong></li>
+</ul>
+</blockquote>
+<p>因为大数据时代数据充满了不确定性，极高的冗余度，数据的错误等等，用普通的方式很难在<strong>成吨</strong>数据中提取出我们真正想要的数据，所以 ETL 由此诞生。</p>
+<p>ETL的流程也如其名：<strong>Extract, Transform, Load</strong></p>
+<blockquote>
+<p><strong>提炼</strong></p>
+<p>在数据提取过程中，原始数据会从源位置复制或导出到暂存区。数据管理团队可以从各种数据源中提取数据，这些数据源可以是结构化的或非结构化的。这些来源包括但不限于：</p>
+<ul>
+<li>SQL 或 <a target="_blank" rel="noopener" href="https://www.ibm.com/cloud/learn/nosql-databases">NoSQL</a> 服务器</li>
+<li>CRM和ERP系统</li>
+<li>平面文件</li>
+<li>电子邮件</li>
+<li>网页</li>
+</ul>
+<p><strong>转换</strong></p>
+<p>在暂存区，对原始数据进行数据处理。在这里，数据被转换和整合以用于其预期的分析用例。此阶段可能涉及以下任务：</p>
+<ul>
+<li>过滤、清理、重复数据删除、验证和验证数据。</li>
+<li>根据原始数据执行计算、转换或汇总。这可以包括更改行和列标题以保持一致性、转换货币或其他计量单位、编辑文本字符串等。</li>
+<li>进行审计以确保数据质量和合规性</li>
+<li>删除、加密或保护由行业或政府监管机构管理的数据</li>
+<li>将数据格式化为表或连接表以匹配目标数据仓库的架构。</li>
+</ul>
+<p><strong>加载</strong></p>
+<p>在这最后一步中，转换后的数据从暂存区移动到目标数据仓库。通常，这涉及到所有数据的初始加载，然后是定期加载增量数据更改，并且不太常见的是完全刷新以擦除和替换仓库中的数据。对于大多数使用 ETL 的组织而言，该过程是自动化的、定义明确的、连续的和批处理驱动的。通常，ETL 发生在源系统和数据仓库上的流量最低的非工作时间。</p>
+</blockquote>
+<p>ETL 工具</p>
+<blockquote>
+<p><strong>Datastage</strong></p>
+<p>IBM公司的商业软件，最专业的ETL工具，但同时价格不菲，适合大规模的ETL应用。</p>
+<p><strong>Informatica</strong></p>
+<p>商业软件，相当专业的ETL工具。价格上比Datastage便宜一点，也适合大规模的ETL应用。</p>
+<p><strong>Kettle</strong></p>
+<p>免费，最著名的开源产品，是用纯java编写的ETL工具，只需要JVM环境即可部署，可跨平台，扩展性好。</p>
+</blockquote>
+<p>三种 ETL 工具比较</p>
+<blockquote>
+<p><strong>1、操作</strong></p>
+<p>这三种ETL工具都是属于比较简单易用的，主要看开发人员对于工具的熟练程度。</p>
+<p>Informatica有四个开发管理组件，开发的时候我们需要打开其中三个进行开发，Informatica没有ctrl+z的功能，如果对job作了改变之后，想要撤销，返回到改变前是不可能的。相比Kettle跟Datastage在测试调试的时候不太方便。Datastage全部的操作在同一个界面中，不用切换界面，能够看到数据的来源，整个job的情况，在找bug的时候会比Informatica方便。</p>
+<p>Kettle介于两者之间。</p>
+<p><strong>2、部署</strong></p>
+<p>Kettle只需要JVM环境，Informatica需要服务器和客户端安装，而Datastage的部署比较耗费时间，有一点难度。</p>
+<p><strong>3、数据处理的速度</strong></p>
+<p>大数据量下Informatica与Datastage的处理速度是比较快的，比较稳定。Kettle的处理速度相比之下稍慢。</p>
+<p><strong>4、服务</strong></p>
+<p>Informatica与Datastage有很好的商业化的技术支持，而Kettle则没有。商业软件的售后服务上会比免费的开源软件好很多。</p>
+<p><strong>5、风险</strong></p>
+<p>风险与成本成反比，也与技术能力成正比。</p>
+<p><strong>6、扩展</strong></p>
+<p>Kettle的扩展性无疑是最好，因为是开源代码，可以自己开发拓展它的功能，而Informatica和Datastage由于是商业软件，基本上没有。</p>
+<p><strong>7、Job的监控</strong></p>
+<p>三者都有监控和日志工具。</p>
+<p>在数据的监控上，个人觉得Datastage的实时监控做的更加好，可以直观看到数据抽取的情况，运行到哪一个控件上。这对于调优来说，我们可以更快的定位到处理速度太慢的控件并进行处理，而informatica也有相应的功能，但是并不直观，需要通过两个界面的对比才可以定位到处理速度缓慢的控件。有时候还需要通过一些方法去查找。</p>
+<p><strong>8、网上的技术文档</strong></p>
+<p>Datastage &lt; Informatica &lt; kettle,相对来说，Datastage跟Informatica在遇到问题去网上找到解决方法的概率比较低，kettle则比较多。</p>
+</blockquote>
+<h3 id="何为BI？"><a href="#何为BI？" class="headerlink" title="何为BI？"></a>何为BI？</h3><p>定义 维基百科</p>
+<blockquote>
+<p><strong>商业智能（Business Intelligence, BI）</strong>，指用现代<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%80%89%E5%84%B2">数据仓库</a>技术、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B7%9A%E4%B8%8A%E5%88%86%E6%9E%90%E8%99%95%E7%90%86">在线分析处理</a>技术、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98">数据挖掘</a>和资料展现技术进行资料分析以实现<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%95%86%E6%A5%AD">商业</a>价值</p>
+<p>商业智能的概念经由Howard Dresner（1989年）的通俗化而被人们广泛了解。当时将商业智能定义为一类由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%80%89%E5%84%B2">数据仓库</a>（或<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B3%87%E8%A8%8A%E5%B8%82%E9%9B%86">信息市集</a>）、查询报表、资料分析、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E6%8E%A2%E5%8B%98">数据挖掘</a>、资料备份和恢复等部分组成的、以帮助企业决策为目的技术及其应用。</p>
+<p>目前，商业智能通常被理解为将<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%81%E6%A5%AD">企业</a>中现有的资料转化为<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%9F%A5%E8%AD%98">知识</a>，帮助企业做出明智的业务经营决策的工具。这里所谈的数据包括来自企业业务系统的订单、库存、交易账目、客户和供应商资料及来自企业所处行业和竞争对手的资料，以及来自企业所处的其他外部环境中的各种资料。而商业智能能够辅助的业务经营决策既可以是作业层的，也可以是管理层和策略层的决策。</p>
+<p>商业智能可以定义为一系列商业活动行为的资料收集与信息转化作业，透过持续性的过程，搭配技术进行测量、管理与监测，能够容易分析、综合营运及策略的定量化信息应用，即时且交互的对企业的关键性的衡量指针进行评估，进而发觉企业面临的潜在问题或机会，促使用户能够运用大量而完整的信息，进行交叉分析并了解其中趋势，协助企业制订出最佳的策略主题与策略目标的一种决策支持的工具。</p>
+</blockquote>
+<p>BI技术运用</p>
+<blockquote>
+<ul>
+<li>数据分析</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://powerbi.microsoft.com/">Power BI</a> （<a target="_blank" rel="noopener" href="https://web.archive.org/web/20201217080138/https://powerbi.microsoft.com/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）, <a target="_blank" rel="noopener" href="https://www.tableau.com/">Tableau</a> （<a target="_blank" rel="noopener" href="https://web.archive.org/web/20210109223556/https://www.tableau.com/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）, <a target="_blank" rel="noopener" href="http://www.lcnet.com.tw/">Smart eVision</a>（<a target="_blank" rel="noopener" href="https://web.archive.org/web/20191128165820/http://www.lcnet.com.tw/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）</p>
+<ul>
+<li>数据仓储</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://www.asterdata.com/">Teradata Aster Data</a> （<a target="_blank" rel="noopener" href="https://web.archive.org/web/20200919010718/http://www.asterdata.com/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）, <a target="_blank" rel="noopener" href="https://greenplum.org/">EMC GreenPlum</a> （<a target="_blank" rel="noopener" href="https://web.archive.org/web/20201111224512/https://greenplum.org/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）, <a target="_blank" rel="noopener" href="https://www.vertica.com/overview/">HP Vertica</a> （<a target="_blank" rel="noopener" href="https://web.archive.org/web/20201128175310/https://www.vertica.com/overview/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>） }}</p>
+<ul>
+<li>数据集市</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.qlik.com/">QlikView</a>（<a target="_blank" rel="noopener" href="https://web.archive.org/web/20170430232324/https://www.qlik.com/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）, <a target="_blank" rel="noopener" href="https://datafocus.ai/">DataFocus</a>（<a target="_blank" rel="noopener" href="https://web.archive.org/web/20180811180104/https://datafocus.ai/">页面存档备份</a>，存于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E6%A1%A3%E6%A1%88%E9%A6%86">互联网档案馆</a>）, Tableau, Yonghong Data Mart</p>
+<ul>
+<li>数据采集</li>
+</ul>
+<p>Kettle</p>
+<ul>
+<li>OLAP（分布式数据分析）</li>
+<li>决策支持系统</li>
+</ul>
+</blockquote>
+<p>企业导入BI的优点</p>
+<blockquote>
+<ul>
+<li>随机查询动态报表</li>
+<li>掌握指针管理</li>
+<li>随时在线分析处理</li>
+<li>可视化之企业仪表版</li>
+<li>协助预测规划</li>
+</ul>
+</blockquote>
+<p>导入BI的目的</p>
+<blockquote>
+<ul>
+<li><p>促进企业决策流程（Facilitate the Business Decision-Making Process）：BIS增进企业的信息集成与信息分析的能力，汇总公司内、外部的资料，集成成有效的决策信息，让企业经理人大幅增进决策效率与改善决策质量。</p>
+</li>
+<li><p>降低整体营运成本（Power the Bottom Line）：BIS改善企业的信息获取能力，大幅降低IT人员撰写程序、Power user制作报表的时间与人力成本，而弹性的模块设计接口，完全不需撰写程序的特色也让日后的维护成本大幅降低。</p>
+</li>
+<li><p>协同组织目标与行动（Achieve a Fully Coordinated Organization）：BIS加强企业的信息传播能力，消除信息需求者与IT人员之间的认知差距，并可让更多人获得更有意义的信息。全面改善企业之体质，使组织内的每个人目标一致、齐心协力。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="何为-AI-？"><a href="#何为-AI-？" class="headerlink" title="何为 AI ？"></a>何为 AI ？</h3><p>定义 维基百科</p>
+<blockquote>
+<p><strong>人工智能</strong>（英语：artificial intelligence，缩写为<strong>AI</strong>）亦称<strong>智械</strong>、<strong>机器智能</strong>，指由人制造出来的机器所表现出来的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%99%BA%E6%85%A7">智能</a>。通常人工智能是指通过普通计算机程序来呈现人类智能的技术。该词也指出研究这样的智能系统是否能够实现，以及如何实现。同时，通过<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%86%AB%E5%AD%B8">医学</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A5%9E%E7%B6%93%E7%A7%91%E5%AD%B8">神经科学</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6">机器人学</a>及<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B5%B1%E8%A8%88%E5%AD%B8">统计学</a>等的进步，常态预测则认为人类的很多职业也逐渐被其取代。[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-1">1]</a>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-2">2]</a></p>
+<p>人工智能于一般教材中的定义领域是“智能主体（intelligent agent）的研究与设计”[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-Definition_of_AI-3">3]</a>，智能主体指一个可以观察周遭环境并作出行动以达致目标的系统[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-Intelligent_agents-4">4]</a>。<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%A6%E7%BF%B0%C2%B7%E9%BA%A6%E5%8D%A1%E9%94%A1">约翰·麦卡锡</a>于1955年的定义是[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-Coining_of_the_term_AI-5">5]</a>“制造智能机器的科学与工程”[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-McCarthy's_definition_of_AI-6">6]</a>。<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AE%89%E5%BE%B7%E7%83%88%E4%BA%9A%E6%96%AF%C2%B7%E5%8D%A1%E6%99%AE%E5%85%B0">安德烈亚斯·卡普兰</a>（Andreas Kaplan）和迈克尔·海恩莱因（Michael Haenlein）将人工智能定义为“系统正确解释外部数据，从这些数据中学习，并利用这些知识通过灵活适应实现特定目标和任务的能力”。[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-7">7]</a> 人工智能可以定义为模仿人类与人类思维相关的认知功能的机器或计算机，如学习和解决问题。人工智能是计算机科学的一个分支，它感知其环境并采取行动，最大限度地提高其成功机会。此外，人工智能能够从过去的经验中学习，做出合理的决策，并快速回应。因此，人工智能研究人员的科学目标是通过构建具有象征意义的推理或推理的计算机程序来理解智能。人工智能的四个主要组成部分是：</p>
+<ul>
+<li>专家系统：作为专家处理正在审查的情况，并产生预期或预期的绩效。</li>
+<li>启发式问题解决：包括评估小范围的解决方案，并可能涉及一些猜测，以找到接近最佳的解决方案。</li>
+<li>自然语言处理：在自然语言中实现人机之间的交流。</li>
+<li>计算机视觉：自动生成识别形状和功能的能力 [<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-8">8]</a>。</li>
+</ul>
+<p>人工智能的研究是高度技术性和专业的，各分支领域都是深入且各不相通的，因而涉及范围极广[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-Fragmentation_of_AI-9">9]</a>。人工智能的研究可以分为几个技术问题。其分支领域主要集中在解决具体问题，其中之一是，如何使用各种不同的工具完成特定的应用程序。</p>
+<p>AI的核心问题包括建构能够跟人类似甚至超卓的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8E%A8%E7%90%86">推理</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%9F%A5%E8%AF%86">知识</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%A6%8F%E5%8A%83">规划</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%A6%E4%B9%A0">学习</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%A4%E6%B5%81">交流</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5">感知</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E7%A7%BB%E7%89%A9&action=edit&redlink=1">移物</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7&action=edit&redlink=1">使用工具</a>和操控<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%9C%BA%E6%A2%B0">机械</a>的能力等[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-Problems_of_AI-10">10]</a>。人工智能目前仍然是该领域的长远目标[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD#cite_note-General_intelligence-11">11]</a>。目前弱人工智能已经有初步成果，甚至在一些影像识别、语言分析、棋类游戏等等单方面的能力达到了超越人类的水平，而且人工智能的通用性代表着，能解决上述的问题的是一样的AI程序，无须重新开发算法就可以直接使用现有的AI完成任务，与人类的处理能力相同，但达到具备思考能力的统合强人工智能还需要时间研究，比较流行的方法包括统计方法，计算智能和传统意义的AI。目前有大量的工具应用了人工智能，其中包括搜索和数学优化、逻辑推演。而基于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BB%BF%E7%94%9F%E5%AD%B8">仿生学</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%AA%8D%E7%9F%A5%E5%BF%83%E7%90%86%E5%AD%B8">认知心理学</a>，以及基于概率论和经济学的算法等等也在逐步探索当中。</p>
+</blockquote>
+<p>在此三个领域中，看似都跟Spark没有什么关系，唯一一个看似有关系的ETL也有较为成熟的ETL工具，可视化的操作，上手比较快，但是对于数据量上升导致性能出问题，可优化的空间就不是很大了，毕竟底层人家都已经帮你封装好了，对于大量的数据，ETL工具就显得力不从心了，因为，所以还需要Spark对数据处理</p>
+<p>在BI领域同样的，也会有此类问题，只是问题较少，因为BI分析大多为企业内部展示，可以预先规划时间并处理好数据</p>
+<p>在AI领域，Spark 的ML框架对于大数据学习有着很强的增补，N卡GPU 也可加速 Apache Spark 3 数据科学管道，加快数据处理和模型训练速度，同时大幅降低基础设施成本。ML框架也集成了较为先进的机器学习算法：<strong>逻辑回归，朴素贝叶斯，线性回归，SVM，决策树，LDA，矩阵分解</strong> 等</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">kanaikee</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://kanaikee.com/2022/08/30/spark-ying-yong-fen-xi/">http://kanaikee.com/2022/08/30/spark-ying-yong-fen-xi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">kanaikee</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Spark%E6%9D%82%E8%B0%88/">
+                                    <span class="chip bg-color">Spark杂谈</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/08/30/hexo-prism-plugin-dai-ma-gao-liang-cuo-wu-jie-jue/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="hexo-prism-plugin代码高亮错误解决">
+                        
+                        <span class="card-title">hexo-prism-plugin代码高亮错误解决</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            kanaikee
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/bugfixed/">
+                        <span class="chip bg-color">bugfixed</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/25/scala-ji-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Scala基础">
+                        
+                        <span class="card-title">Scala基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            kanaikee
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Scala/">
+                        <span class="chip bg-color">Scala</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">kanaikee</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="<https://github.com/koooolllll>" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+<!-- 
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+ -->
+
+<!--  -->
+
+<!--  -->
+
+<!-- 
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+ -->
+
+<!-- 
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+ -->
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
