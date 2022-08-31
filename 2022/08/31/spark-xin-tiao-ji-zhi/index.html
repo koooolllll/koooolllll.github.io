@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Scala 函数式编程, kanaikee">
+    <meta name="keywords" content="Spark 心跳机制, kanaikee">
     <meta name="description" content="春风不语，即问本心">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Scala 函数式编程 | kanaikee</title>
+    <title>Spark 心跳机制 | kanaikee</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Scala 函数式编程</h1>
+                    <h1 class="description center-align post-title">Spark 心跳机制</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Scala/">
-                                <span class="chip bg-color">Scala</span>
+                            <a href="/tags/Spark/">
+                                <span class="chip bg-color">Spark</span>
                             </a>
                         
                     </div>
@@ -468,72 +468,136 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Scala-函数式编程"><a href="#Scala-函数式编程" class="headerlink" title="Scala 函数式编程"></a>Scala 函数式编程</h1><p>说到函数式编程，那么就不得不提到几个概念</p>
-<blockquote>
+                <h1 id="Spark-心跳机制"><a href="#Spark-心跳机制" class="headerlink" title="Spark 心跳机制"></a>Spark 心跳机制</h1><hr>
+<h2 id="心跳机制概述"><a href="#心跳机制概述" class="headerlink" title="心跳机制概述"></a>心跳机制概述</h2><hr>
+<p>我们首先要知道Spark的心跳有什么用。心跳是分布式技术的基础，我们知道在Spark中，是有一个Master和众多的Worker，那么Master怎么知道每个Worker的情况呢，这就需要借助心跳机制了。心跳除了传输信息，另一个主要的作用就是Worker告诉Master它还活着，当心跳停止时，方便Master进行一些容错操作，比如数据转移备份等等。</p>
+<h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><hr>
+<p><img src="https://raw.githubusercontent.com/koooolllll/picture/main/image-20220831203518172.png" alt="image-20220831203518086"></p>
+<h2 id="心跳服务端heartbeatReceiver解析"><a href="#心跳服务端heartbeatReceiver解析" class="headerlink" title="心跳服务端heartbeatReceiver解析"></a>心跳服务端heartbeatReceiver解析</h2><hr>
+<p>我们可以发现，SparkContext中有关于心跳的类以及RpcEndpoint注册代码。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">class</span> SparkContext<span class="token punctuation">(</span>config<span class="token operator">:</span> SparkConf<span class="token punctuation">)</span> <span class="token keyword">extends</span> Logging <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">private</span> <span class="token keyword">var</span> _heartbeatReceiver<span class="token operator">:</span> RpcEndpointRef <span class="token operator">=</span> _
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment" spellcheck="true">//向 RpcEnv 注册 Endpoint。</span>
+    _heartbeatReceiver <span class="token operator">=</span> env<span class="token punctuation">.</span>rpcEnv<span class="token punctuation">.</span>setupEndpoint<span class="token punctuation">(</span>HeartbeatReceiver<span class="token punctuation">.</span>ENDPOINT_NAME<span class="token punctuation">,</span> <span class="token keyword">new</span> HeartbeatReceiver<span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+      <span class="token keyword">val</span> <span class="token punctuation">(</span>sched<span class="token punctuation">,</span> ts<span class="token punctuation">)</span> <span class="token operator">=</span> SparkContext<span class="token punctuation">.</span>createTaskScheduler<span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> master<span class="token punctuation">,</span> deployMode<span class="token punctuation">)</span>
+    _schedulerBackend <span class="token operator">=</span> sched
+    _taskScheduler <span class="token operator">=</span> ts
+    _dagScheduler <span class="token operator">=</span> <span class="token keyword">new</span> DAGScheduler<span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+    _heartbeatReceiver<span class="token punctuation">.</span>ask<span class="token punctuation">[</span><span class="token builtin">Boolean</span><span class="token punctuation">]</span><span class="token punctuation">(</span>TaskSchedulerIsSet<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这里rpcEnv已经在上下文中创建好，通过<code>setupEndpoint</code>向<code>rpcEnv</code>注册一个心跳的<code>Endpoint</code></p>
+<p>所以这一句</p>
+<pre class=" language-scala"><code class="language-scala">_heartbeatReceiver <span class="token operator">=</span> env<span class="token punctuation">.</span>rpcEnv<span class="token punctuation">.</span>setupEndpoint<span class="token punctuation">(</span>HeartbeatReceiver<span class="token punctuation">.</span>ENDPOINT_NAME<span class="token punctuation">,</span> <span class="token keyword">new</span> HeartbeatReceiver<span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>就已经完成了心跳服务端监听的功能。</p>
+<p>那么这条代码的作用呢？</p>
+<pre class=" language-scala"><code class="language-scala">_heartbeatReceiver<span class="token punctuation">.</span>ask<span class="token punctuation">[</span><span class="token builtin">Boolean</span><span class="token punctuation">]</span><span class="token punctuation">(</span>TaskSchedulerIsSet<span class="token punctuation">)</span>
+</code></pre>
+<p>这里我们要看上面那句</p>
+<p><code>val (sched, ts) = SparkContext.createTaskScheduler(this, master, deployMode)</code></p>
+<p>它会根据<strong>master url</strong>创建<code>SchedulerBackend</code>和<code>TaskScheduler</code>。这两个类都是和资源调度有关的，所以需要借助心跳机制来传送消息。</p>
 <ul>
-<li>函数副作用</li>
-<li>纯函数</li>
-<li>非纯函数</li>
-<li>参照透明性</li>
+<li><code>TaskScheduler</code>负责任务调度资源分配</li>
+<li><code>SchedulerBackend</code>负责与<code>Master</code>、<code>Worker</code>通信收集<code>Worker</code>上分配给该应用使用的资源情况。</li>
 </ul>
-</blockquote>
-<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><p>在计算机科学中，<strong>函数副作用</strong>指当调用函数时，除了返回可能的函数值之外，还对主调用函数产生附加的影响。例如修改全局变量（函数外的变量），修改参数，向主调方的终端、管道输出字符或改变外部存储信息等。</p>
-<blockquote>
-<p>在某些情况下函数副作用会给程序设计带来不必要的麻烦，给程序带来十分难以查找的错误，并降低程序的可读性与可移植性。严格的函数式语言要求函数必须无任何副作用，但功能性静态函数本身的目的正是产生某些副作用。在生命科学中，副作用往往带有贬义，但在计算机科学中，副作用有时正是“主要作用”。</p>
-</blockquote>
-<p>所以，我们应当尽量避免函数副作用，当然在某些情况下，副作用无法避免，比如异常处理等</p>
-<h2 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h2><p>纯函数（英语：Pure Function）——输入输出数据流全是<em>显式</em>（英语：Explicit）的。</p>
-<blockquote>
-<p>显式的意思是</p>
-<ul>
-<li>函数与外界交换数据只有一个唯一渠道——<strong>参数和返回值</strong>；</li>
-<li>函数从函数外部接受的所有输入信息都通过参数传递到该函数内部；</li>
-<li>函数输出到函数外部的所有信息都通过返回值传递到该函数外部。</li>
-</ul>
-</blockquote>
-<h2 id="非纯函数"><a href="#非纯函数" class="headerlink" title="非纯函数"></a>非纯函数</h2><p>如果一个函数通过<em>隐式</em>（英语：Implicit）方式，从外界获取数据，或者向外部输出数据，那么，该函数就不是纯函数，叫作非纯函数（英语：Impure Function）。</p>
-<blockquote>
-<p>隐式的意思是</p>
-<p>函数通过参数和返回值以外的渠道，和外界进行数据交换。</p>
-<p>比如，读取全局变量，修改全局变量，都叫作以隐式的方式和外界进行数据交换；比如，利用 I&#x2F;O API（输入输出系统函数库）读取配置文件，或者输出到文件，打印到屏幕，都叫做隐式的方式和外界进行数据交换。</p>
-</blockquote>
-<h3 id="特殊的非纯函数"><a href="#特殊的非纯函数" class="headerlink" title="特殊的非纯函数"></a>特殊的非纯函数</h3><p>上述所表达的，是对于函数外部变量的更改，但是需要注意的是，从严格意义上来说，<strong>对函数入参做出的更改也算是一种非纯函数</strong></p>
-<p>伪代码如下所示</p>
-<pre class=" language-scala"><code class="language-scala">process<span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    a <span class="token operator">=</span> context<span class="token punctuation">.</span>getInfo<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    result <span class="token operator">=</span> calculate<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
-    context<span class="token punctuation">.</span>setResult<span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+<p><strong>这里主要是告诉<code>HeartbeatReceiver</code>（心跳）的监听端 <code>Master</code>，告诉它<code>TaskScheduler</code>这个东西已经设置好啦。<code>HeartbeatReceiver</code>就会回应你说好的，我知道的，并持有这个<code>TaskScheduler</code>。</strong></p>
+<p>到这里服务端<code>heartbeatReceiver</code>就差不多完了，我们可以发现，<code>HeartbeatReceiver</code>除了向<code>RpcEnv</code>注册并监听消息之外，还会去持有一些资源调度相关的类，比如<code>TaskSchedulerIsSet</code>。</p>
+<h2 id="心跳客户端发送心跳解析"><a href="#心跳客户端发送心跳解析" class="headerlink" title="心跳客户端发送心跳解析"></a>心跳客户端发送心跳解析</h2><p>发送心跳发送在 <code>Worker</code>，每个<code>Worker</code>都会有一个<code>Executor</code>，所以我们可以发现在<code>Executor</code>中发送心跳的代码。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">private</span><span class="token punctuation">[</span>spark<span class="token punctuation">]</span> <span class="token keyword">class</span> Executor<span class="token punctuation">(</span>
+    executorId<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span>
+    executorHostname<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span>
+    env<span class="token operator">:</span> SparkEnv<span class="token punctuation">,</span>
+    userClassPath<span class="token operator">:</span> Seq<span class="token punctuation">[</span>URL<span class="token punctuation">]</span> <span class="token operator">=</span> Nil<span class="token punctuation">,</span>
+    isLocal<span class="token operator">:</span> <span class="token builtin">Boolean</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+  <span class="token keyword">extends</span> Logging <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token comment" spellcheck="true">// must be initialized before running startDriverHeartbeat()</span>
+  <span class="token comment" spellcheck="true">//创建心跳的 EndpointRef</span>
+  <span class="token keyword">private</span> <span class="token keyword">val</span> heartbeatReceiverRef <span class="token operator">=</span> RpcUtils<span class="token punctuation">.</span>makeDriverRef<span class="token punctuation">(</span>HeartbeatReceiver<span class="token punctuation">.</span>ENDPOINT_NAME<span class="token punctuation">,</span> conf<span class="token punctuation">,</span> env<span class="token punctuation">.</span>rpcEnv<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  startDriverHeartbeater<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment" spellcheck="true">/**
+   * Schedules a task to report heartbeat and partial metrics for active tasks to driver.
+   * 用一个 task 来报告活跃任务的信息以及发送心跳。
+   */</span>
+  <span class="token keyword">private</span> <span class="token keyword">def</span> startDriverHeartbeater<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">val</span> intervalMs <span class="token operator">=</span> conf<span class="token punctuation">.</span>getTimeAsMs<span class="token punctuation">(</span><span class="token string">"spark.executor.heartbeatInterval"</span><span class="token punctuation">,</span> <span class="token string">"10s"</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true">// Wait a random interval so the heartbeats don't end up in sync</span>
+    <span class="token keyword">val</span> initialDelay <span class="token operator">=</span> intervalMs <span class="token operator">+</span> <span class="token punctuation">(</span>math<span class="token punctuation">.</span>random <span class="token operator">*</span> intervalMs<span class="token punctuation">)</span><span class="token punctuation">.</span>asInstanceOf<span class="token punctuation">[</span><span class="token builtin">Int</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">val</span> heartbeatTask <span class="token operator">=</span> <span class="token keyword">new</span> Runnable<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">override</span> <span class="token keyword">def</span> run<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> Utils<span class="token punctuation">.</span>logUncaughtExceptions<span class="token punctuation">(</span>reportHeartBeat<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//heartbeater是一个单线程线程池，scheduleAtFixedRate 是定时执行任务用的，和 schedule 类似，只是一些策略不同。</span>
+    heartbeater<span class="token punctuation">.</span>scheduleAtFixedRate<span class="token punctuation">(</span>heartbeatTask<span class="token punctuation">,</span> initialDelay<span class="token punctuation">,</span> intervalMs<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="参照透明性"><a href="#参照透明性" class="headerlink" title="参照透明性"></a>参照透明性</h2><p>无副作用是参照透明性（英语：Referential transparency）（英语：Referential Transparent）的必要非充分条件。</p>
-<blockquote>
-<p>参照透明意味着一个表达式（例如一次函数调用）可以被替换为它的值。这需要该表达式是纯的，也就是说该表达式必须是完全确定的（相同的输入总是导致相同的输出）而且没有副作用。</p>
-</blockquote>
-<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><pre class=" language-scala"><code class="language-scala">f<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-    <span class="token keyword">return</span> x <span class="token operator">+</span> <span class="token number">1</span> 
+<p>可以看到，在<code>Executor</code>中会创建心跳的<code>EndpointRef</code>，变量名为<code>heartbeatReceiverRef</code>。</p>
+<p>然后我们主要看<code>startDriverHeartbeater()</code>这个方法，它是关键。<br>我们可以看到最后部分代码</p>
+<pre class=" language-scala"><code class="language-scala">    <span class="token keyword">val</span> heartbeatTask <span class="token operator">=</span> <span class="token keyword">new</span> Runnable<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">override</span> <span class="token keyword">def</span> run<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> Utils<span class="token punctuation">.</span>logUncaughtExceptions<span class="token punctuation">(</span>reportHeartBeat<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    heartbeater<span class="token punctuation">.</span>scheduleAtFixedRate<span class="token punctuation">(</span>heartbeatTask<span class="token punctuation">,</span> initialDelay<span class="token punctuation">,</span> intervalMs<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span>
+</code></pre>
+<p><code>heartbeatTask</code>是一个<code>Runaable</code>，即一个线程任务。<code>scheduleAtFixedRate</code>则是<code>java concurrent</code>包中用来执行定时任务的一个类，<strong>这里的意思是每隔10s跑一次heartbeatTask中的线程任务，超时时间30s</strong>。</p>
+<p>为什么到这里还是没看到<code>heartbeatReceiverRef</code>呢，说好的发送心跳呢？别急，其实在<code>heartbeatTask</code>线程任务中又调用了另一个方法，我们到里面去一探究竟。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">private</span><span class="token punctuation">[</span>spark<span class="token punctuation">]</span> <span class="token keyword">class</span> Executor<span class="token punctuation">(</span>
+    executorId<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span>
+    executorHostname<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span>
+    env<span class="token operator">:</span> SparkEnv<span class="token punctuation">,</span>
+    userClassPath<span class="token operator">:</span> Seq<span class="token punctuation">[</span>URL<span class="token punctuation">]</span> <span class="token operator">=</span> Nil<span class="token punctuation">,</span>
+    isLocal<span class="token operator">:</span> <span class="token builtin">Boolean</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+  <span class="token keyword">extends</span> Logging <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token keyword">private</span> <span class="token keyword">def</span> reportHeartBeat<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// list of (task id, accumUpdates) to send back to the driver</span>
+    <span class="token keyword">val</span> accumUpdates <span class="token operator">=</span> <span class="token keyword">new</span> ArrayBuffer<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token builtin">Long</span><span class="token punctuation">,</span> Seq<span class="token punctuation">[</span>AccumulatorV2<span class="token punctuation">[</span>_<span class="token punctuation">,</span> _<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">val</span> curGCTime <span class="token operator">=</span> computeTotalGcTime<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>taskRunner <span class="token keyword">&lt;-</span> runningTasks<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>asScala<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>taskRunner<span class="token punctuation">.</span>task <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        taskRunner<span class="token punctuation">.</span>task<span class="token punctuation">.</span>metrics<span class="token punctuation">.</span>mergeShuffleReadMetrics<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        taskRunner<span class="token punctuation">.</span>task<span class="token punctuation">.</span>metrics<span class="token punctuation">.</span>setJvmGCTime<span class="token punctuation">(</span>curGCTime <span class="token operator">-</span> taskRunner<span class="token punctuation">.</span>startGCTime<span class="token punctuation">)</span>
+        accumUpdates <span class="token operator">+=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>taskRunner<span class="token punctuation">.</span>taskId<span class="token punctuation">,</span> taskRunner<span class="token punctuation">.</span>task<span class="token punctuation">.</span>metrics<span class="token punctuation">.</span>accumulators<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">val</span> message <span class="token operator">=</span> Heartbeat<span class="token punctuation">(</span>executorId<span class="token punctuation">,</span> accumUpdates<span class="token punctuation">.</span>toArray<span class="token punctuation">,</span> env<span class="token punctuation">.</span>blockManager<span class="token punctuation">.</span>blockManagerId<span class="token punctuation">)</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">//终于看到 heartbeatReceiverRef 的身影了</span>
+      <span class="token keyword">val</span> response <span class="token operator">=</span> heartbeatReceiverRef<span class="token punctuation">.</span>askWithRetry<span class="token punctuation">[</span>HeartbeatResponse<span class="token punctuation">]</span><span class="token punctuation">(</span>
+          message<span class="token punctuation">,</span> RpcTimeout<span class="token punctuation">(</span>conf<span class="token punctuation">,</span> <span class="token string">"spark.executor.heartbeatInterval"</span><span class="token punctuation">,</span> <span class="token string">"10s"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>response<span class="token punctuation">.</span>reregisterBlockManager<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        logInfo<span class="token punctuation">(</span><span class="token string">"Told to re-register on heartbeat"</span><span class="token punctuation">)</span>
+        env<span class="token punctuation">.</span>blockManager<span class="token punctuation">.</span>reregister<span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      heartbeatFailures <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">{</span>
+      <span class="token keyword">case</span> NonFatal<span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token keyword">=></span>
+        logWarning<span class="token punctuation">(</span><span class="token string">"Issue communicating with driver in heartbeater"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+        heartbeatFailures <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>heartbeatFailures <span class="token operator">>=</span> HEARTBEAT_MAX_FAILURES<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          logError<span class="token punctuation">(</span>s<span class="token string">"Exit as unable to send heartbeats to driver "</span> <span class="token operator">+</span>
+            s<span class="token string">"more than $HEARTBEAT_MAX_FAILURES times"</span><span class="token punctuation">)</span>
+          System<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>ExecutorExitCode<span class="token punctuation">.</span>HEARTBEAT_FAILURE<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  
 <span class="token punctuation">}</span>
 </code></pre>
-<p><em>f(x)函数就是纯函数。</em></p>
-<pre class=" language-scala"><code class="language-scala">a <span class="token operator">=</span> <span class="token number">0</span> 
-q<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-    b <span class="token operator">=</span> a 
-<span class="token punctuation">}</span>
-</code></pre>
-<p><em>q(x)访问了函数外部的变量。q(x)是非纯函数。</em></p>
-<pre class=" language-scala"><code class="language-scala">p<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-    print“hello” 
-<span class="token punctuation">}</span>
-</code></pre>
-<p><em>p(x)通过I&#x2F;O API输出了一个字符串。p(x)是非纯函数。</em></p>
-<pre class=" language-scala"><code class="language-scala">c<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-    <span class="token comment" spellcheck="true">// 假设readConfig()函数为I/O API的函數</span>
-    <span class="token comment" spellcheck="true">// 读取配置文件 </span>
-    data <span class="token operator">=</span> readConfig<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-<span class="token punctuation">}</span>
-</code></pre>
-<p><em>c(x)通过I&#x2F;O API读取了配置文件。c(x)是非纯函数。</em></p>
-<p>函数内部有隐式（Implicit）的数据流，这种情况叫做<strong>副作用</strong>（Side Effect）。上述的I&#x2F;O，外部变量等，都可以归为副作用。因此，纯函数的定义也可以写为“没有副作用的函数”。</p>
-<p>I&#x2F;O API 可以看作是一种特殊的全局变量。文件、屏幕、数据库等输入输出结构可以看作是独立于运行环境之外的系统外全局变量，而不是应用程序自己定义的全局变量。</p>
+<p>可以看到，这里<code>heartbeatReceiverRef</code>是调用了<code>askWithRetry()</code>方法，这个方法是通过同步的方式发送<code>Rpc</code>消息。而这个方法里其他代码其实就是获取<code>task</code>的信息啊，或者是一些容错处理。核心就是调用<code>askWithRetry()</code>方法来发送消息。</p>
+<p>看到这你就明白了吧。**<code>Executor</code>初始化便会用一个定时任务不断发送心跳，同时当有task的时候，会获取task的信息一并发送。这就是心跳的大概内容了。**</p>
 
                 
             </div>
@@ -560,7 +624,7 @@ q<span class="token punctuation">(</span>x<span class="token punctuation">)</spa
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://kanaikee.com/2022/08/31/scala-han-shu-shi-bian-cheng/">http://kanaikee.com/2022/08/31/scala-han-shu-shi-bian-cheng/</a>
+                    <a href="http://kanaikee.com/2022/08/31/spark-xin-tiao-ji-zhi/">http://kanaikee.com/2022/08/31/spark-xin-tiao-ji-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -598,8 +662,8 @@ q<span class="token punctuation">(</span>x<span class="token punctuation">)</spa
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Scala/">
-                                    <span class="chip bg-color">Scala</span>
+                                <a href="/tags/Spark/">
+                                    <span class="chip bg-color">Spark</span>
                                 </a>
                             
                         </div>
@@ -773,13 +837,13 @@ q<span class="token punctuation">(</span>x<span class="token punctuation">)</spa
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/08/31/spark-xin-tiao-ji-zhi/">
+                <a href="/2022/08/31/akka-shi-xian-spark-xin-tiao-ji-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Spark 心跳机制">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Akka实现Spark心跳机制">
                         
-                        <span class="card-title">Spark 心跳机制</span>
+                        <span class="card-title">Akka实现Spark心跳机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -818,13 +882,13 @@ q<span class="token punctuation">(</span>x<span class="token punctuation">)</spa
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/30/spark-zhi-xing-yuan-li/">
+                <a href="/2022/08/31/scala-han-shu-shi-bian-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Spark执行原理">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Scala 函数式编程">
                         
-                        <span class="card-title">Spark执行原理</span>
+                        <span class="card-title">Scala 函数式编程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -835,7 +899,7 @@ q<span class="token punctuation">(</span>x<span class="token punctuation">)</spa
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-31
                             </span>
                         <span class="publish-author">
                             
@@ -848,8 +912,8 @@ q<span class="token punctuation">(</span>x<span class="token punctuation">)</spa
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Spark/">
-                        <span class="chip bg-color">Spark</span>
+                    <a href="/tags/Scala/">
+                        <span class="chip bg-color">Scala</span>
                     </a>
                     
                 </div>
