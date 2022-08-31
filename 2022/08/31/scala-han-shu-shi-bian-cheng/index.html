@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Spark执行原理, kanaikee">
+    <meta name="keywords" content="Scala 函数式编程, kanaikee">
     <meta name="description" content="春风不语，即问本心">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Spark执行原理 | kanaikee</title>
+    <title>Scala 函数式编程 | kanaikee</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Spark执行原理</h1>
+                    <h1 class="description center-align post-title">Scala 函数式编程</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Spark/">
-                                <span class="chip bg-color">Spark</span>
+                            <a href="/tags/Scala/">
+                                <span class="chip bg-color">Scala</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-30
+                    2022-08-31
                 </div>
                 
 
@@ -468,160 +468,72 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Spark执行原理"><a href="#Spark执行原理" class="headerlink" title="Spark执行原理"></a>Spark执行原理</h1><h2 id="Spark部署图"><a href="#Spark部署图" class="headerlink" title="Spark部署图"></a>Spark部署图</h2><p><img src="https://raw.githubusercontent.com/koooolllll/picture/main/image-20220830215933948.png" alt="image-20220830215933948"></p>
-<p>从部署图中可以看到</p>
-<ul>
-<li><p>整个集群分为 Master 节点和 Worker 节点，相当于 Hadoop 的 Master 和 Slave 节点。</p>
-</li>
-<li><p>Master 节点上常驻 Master 守护进程，负责管理全部的 Worker 节点。</p>
-</li>
-<li><p>Worker 节点上常驻 Worker 守护进程，负责与 Master 节点通信并管理 executors。</p>
-</li>
-<li><p>Driver 官方解释是 “The process running the main() function of the application and creating the SparkContext”。Application 就是用户自己写的 Spark 程序（driver program），比如 WordCount.scala。如果 driver program 在 Master 上运行，比如在 Master 上运行</p>
-<pre class=" language-scala"><code class="language-scala"><span class="token punctuation">.</span>/bin<span class="token operator">/</span>run<span class="token operator">-</span>example SparkPi <span class="token number">10</span>
-</code></pre>
-</li>
-</ul>
-<p>那么 SparkPi 就是 Master 上的 Driver。如果是 YARN 集群，那么 Driver 可能被调度到 Worker 节点上运行（比如上图中的 Worker Node 2）。另外，如果直接在自己的 PC 上运行 driver program，比如在 Eclipse 中运行 driver program，使用</p>
-<pre class=" language-cpp"><code class="language-cpp">```scala
-val sc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">SparkContext</span><span class="token punctuation">(</span><span class="token string">"spark://master:7077"</span><span class="token punctuation">,</span> <span class="token string">"AppName"</span><span class="token punctuation">)</span>
-``` 
-</code></pre>
-<p>去连接 master 的话，driver 就在自己的 PC 上，但是不推荐这样的方式，因为 PC 和 Workers 可能不在一个局域网，driver 和 executor 之间的通信会很慢。</p>
-<ul>
-<li><p>每个 Worker 上存在一个或者多个 ExecutorBackend 进程。每个进程包含一个 Executor 对象，该对象持有一个线程池，每个线程可以执行一个 task。</p>
-</li>
-<li><p>每个 application 包含一个 driver 和多个 executors，每个 executor 里面运行的 tasks 都属于同一个 application。</p>
-</li>
-<li><p>在 Standalone 版本中，ExecutorBackend 被实例化成 CoarseGrainedExecutorBackend 进程。</p>
+                <h1 id="Scala-函数式编程"><a href="#Scala-函数式编程" class="headerlink" title="Scala 函数式编程"></a>Scala 函数式编程</h1><p>说到函数式编程，那么就不得不提到几个概念</p>
 <blockquote>
-<p>在我部署的集群中每个 Worker 只运行了一个 CoarseGrainedExecutorBackend 进程，没有发现如何配置多个 CoarseGrainedExecutorBackend 进程。（应该是运行多个 applications 的时候会产生多个进程，这个我还没有实验，）</p>
-<p>想了解  Worker 和 Executor 的关系详情，可以参阅  <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://weibo.com/oopsoom">@OopsOutOfMemory</a> 同学写的 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://blog.csdn.net/oopsoom/article/details/38763985">Spark Executor Driver资源调度小结</a> 。</p>
-</blockquote>
-</li>
-<li><p>Worker 通过持有 ExecutorRunner 对象来控制 CoarseGrainedExecutorBackend 的启停。</p>
-</li>
+<ul>
+<li>函数副作用</li>
+<li>纯函数</li>
+<li>非纯函数</li>
+<li>参照透明性</li>
 </ul>
-<p>了解了部署图之后，我们先给出一个 job 的例子，然后概览一下 job 如何生成与运行。</p>
-<h2 id="Job-实例"><a href="#Job-实例" class="headerlink" title="Job 实例"></a>Job 实例</h2><p>我们使用 Spark 自带的 examples 包中的 GroupByTest，假设在 Master 节点运行，命令是</p>
-<pre class=" language-scala"><code class="language-scala"><span class="token comment" spellcheck="true">/* Usage: GroupByTest [numMappers] [numKVPairs] [valSize] [numReducers] */</span>
-    
-bin<span class="token operator">/</span>run<span class="token operator">-</span>example GroupByTest <span class="token number">100</span> <span class="token number">10000</span> <span class="token number">1000</span> <span class="token number">36</span>
-</code></pre>
-<p>GroupByTest 具体代码如下</p>
-<pre class=" language-scala"><code class="language-scala"><span class="token keyword">package</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span>examples
-
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Random
-
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span><span class="token punctuation">{</span>SparkConf<span class="token punctuation">,</span> SparkContext<span class="token punctuation">}</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span>SparkContext<span class="token punctuation">.</span>_
-
-<span class="token comment" spellcheck="true">/**
-  * Usage: GroupByTest [numMappers] [numKVPairs] [valSize] [numReducers]
-  */</span>
-<span class="token keyword">object</span> GroupByTest <span class="token punctuation">{</span>
-  <span class="token keyword">def</span> main<span class="token punctuation">(</span>args<span class="token operator">:</span> Array<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">val</span> sparkConf <span class="token operator">=</span> <span class="token keyword">new</span> SparkConf<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>setAppName<span class="token punctuation">(</span><span class="token string">"GroupBy Test"</span><span class="token punctuation">)</span>
-    <span class="token keyword">var</span> numMappers <span class="token operator">=</span> <span class="token number">100</span>
-    <span class="token keyword">var</span> numKVPairs <span class="token operator">=</span> <span class="token number">10000</span>
-    <span class="token keyword">var</span> valSize <span class="token operator">=</span> <span class="token number">1000</span>
-    <span class="token keyword">var</span> numReducers <span class="token operator">=</span> <span class="token number">36</span>
-
-    <span class="token keyword">val</span> sc <span class="token operator">=</span> <span class="token keyword">new</span> SparkContext<span class="token punctuation">(</span>sparkConf<span class="token punctuation">)</span>
-
-    <span class="token keyword">val</span> pairs1 <span class="token operator">=</span> sc<span class="token punctuation">.</span>parallelize<span class="token punctuation">(</span><span class="token number">0</span> until numMappers<span class="token punctuation">,</span> numMappers<span class="token punctuation">)</span><span class="token punctuation">.</span>flatMap <span class="token punctuation">{</span> p <span class="token keyword">=></span>
-      <span class="token keyword">val</span> ranGen <span class="token operator">=</span> <span class="token keyword">new</span> Random
-      <span class="token keyword">var</span> arr1 <span class="token operator">=</span> <span class="token keyword">new</span> Array<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token builtin">Int</span><span class="token punctuation">,</span> Array<span class="token punctuation">[</span><span class="token builtin">Byte</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">(</span>numKVPairs<span class="token punctuation">)</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token keyword">&lt;-</span> <span class="token number">0</span> until numKVPairs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">val</span> byteArr <span class="token operator">=</span> <span class="token keyword">new</span> Array<span class="token punctuation">[</span><span class="token builtin">Byte</span><span class="token punctuation">]</span><span class="token punctuation">(</span>valSize<span class="token punctuation">)</span>
-        ranGen<span class="token punctuation">.</span>nextBytes<span class="token punctuation">(</span>byteArr<span class="token punctuation">)</span>
-        arr1<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>ranGen<span class="token punctuation">.</span>nextInt<span class="token punctuation">(</span><span class="token builtin">Int</span><span class="token punctuation">.</span>MaxValue<span class="token punctuation">)</span><span class="token punctuation">,</span> byteArr<span class="token punctuation">)</span>
-      <span class="token punctuation">}</span>
-      arr1
-    <span class="token punctuation">}</span><span class="token punctuation">.</span>cache
-    <span class="token comment" spellcheck="true">// Enforce that everything has been calculated and in cache</span>
-    pairs1<span class="token punctuation">.</span>count
-
-    println<span class="token punctuation">(</span>pairs1<span class="token punctuation">.</span>groupByKey<span class="token punctuation">(</span>numReducers<span class="token punctuation">)</span><span class="token punctuation">.</span>count<span class="token punctuation">)</span>
-
-    sc<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
+</blockquote>
+<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><p>在计算机科学中，<strong>函数副作用</strong>指当调用函数时，除了返回可能的函数值之外，还对主调用函数产生附加的影响。例如修改全局变量（函数外的变量），修改参数，向主调方的终端、管道输出字符或改变外部存储信息等。</p>
+<blockquote>
+<p>在某些情况下函数副作用会给程序设计带来不必要的麻烦，给程序带来十分难以查找的错误，并降低程序的可读性与可移植性。严格的函数式语言要求函数必须无任何副作用，但功能性静态函数本身的目的正是产生某些副作用。在生命科学中，副作用往往带有贬义，但在计算机科学中，副作用有时正是“主要作用”。</p>
+</blockquote>
+<p>所以，我们应当尽量避免函数副作用，当然在某些情况下，副作用无法避免，比如异常处理等</p>
+<h2 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h2><p>纯函数（英语：Pure Function）——输入输出数据流全是<em>显式</em>（英语：Explicit）的。</p>
+<blockquote>
+<p>显式的意思是</p>
+<ul>
+<li>函数与外界交换数据只有一个唯一渠道——<strong>参数和返回值</strong>；</li>
+<li>函数从函数外部接受的所有输入信息都通过参数传递到该函数内部；</li>
+<li>函数输出到函数外部的所有信息都通过返回值传递到该函数外部。</li>
+</ul>
+</blockquote>
+<h2 id="非纯函数"><a href="#非纯函数" class="headerlink" title="非纯函数"></a>非纯函数</h2><p>如果一个函数通过<em>隐式</em>（英语：Implicit）方式，从外界获取数据，或者向外部输出数据，那么，该函数就不是纯函数，叫作非纯函数（英语：Impure Function）。</p>
+<blockquote>
+<p>隐式的意思是</p>
+<p>函数通过参数和返回值以外的渠道，和外界进行数据交换。</p>
+<p>比如，读取全局变量，修改全局变量，都叫作以隐式的方式和外界进行数据交换；比如，利用 I&#x2F;O API（输入输出系统函数库）读取配置文件，或者输出到文件，打印到屏幕，都叫做隐式的方式和外界进行数据交换。</p>
+</blockquote>
+<h3 id="特殊的非纯函数"><a href="#特殊的非纯函数" class="headerlink" title="特殊的非纯函数"></a>特殊的非纯函数</h3><p>上述所表达的，是对于函数外部变量的更改，但是需要注意的是，从严格意义上来说，<strong>对函数入参做出的更改也算是一种非纯函数</strong></p>
+<p>伪代码如下所示</p>
+<pre class=" language-scala"><code class="language-scala">process<span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">=</span> context<span class="token punctuation">.</span>getInfo<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    result <span class="token operator">=</span> calculate<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+    context<span class="token punctuation">.</span>setResult<span class="token punctuation">(</span>result<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>阅读代码后，我们可以得出这个 job 的执行流程是这样的：</p>
-<p><img src="https://raw.githubusercontent.com/koooolllll/picture/main/image-20220830220455047.png" alt="image-20220830220455047"></p>
-<p>具体流程很简单，这里来估算下 data size 和执行结果：</p>
-<ol>
-<li>初始化 SparkConf()。</li>
-<li>初始化 numMappers&#x3D;100, numKVPairs&#x3D;10,000, valSize&#x3D;1000, numReducers&#x3D; 36。</li>
-<li>初始化 SparkContext。这一步很重要，是要确立 driver 的地位，里面包含创建 driver 所需的各种 actors 和 objects。</li>
-<li>每个 mapper 生成一个 <code>arr1: Array[(Int, Byte[])]</code>，length 为 numKVPairs。每一个 Byte[] 的 length 为 valSize，Int 为随机生成的整数。<code>Size(arr1) = numKVPairs * (4 + valSize) = 10MB</code>，所以 <code>Size(pairs1) = numMappers * Size(arr1) ＝1000MB</code>。这里的数值计算结果都是<em>约等于</em>。</li>
-<li>每个 mapper 将产生的 arr1 数组 cache 到内存。</li>
-<li>然后执行一个 action 操作 count()，来统计所有 mapper 中 arr1 中的元素个数，执行结果是 <code>numMappers * numKVPairs = 1,000,000</code>。这一步主要是为了将每个 mapper 产生的 arr1 数组 cache 到内存。</li>
-<li>在已经被 cache 的 paris1 上执行 groupByKey 操作，groupByKey 产生的 reducer （也就是 partition） 个数为 numReducers。理论上，如果 hash(Key) 比较平均的话，每个 reducer 收到的 &lt;Int, Array[Byte]&gt; record 个数为 <code>numMappers * numKVPairs / numReducer ＝ 27,777</code>，大小为 <code>Size(pairs1) / numReducer = 27MB</code>。</li>
-<li>reducer 将收到的 <code>&lt;Int, Byte[]&gt;</code> records 中拥有相同 Int 的 records 聚在一起，得到 <code>&lt;Int, list(Byte[], Byte[], ..., Byte[])&gt;</code>。</li>
-<li>最后 count 将所有 reducer 中 records 个数进行加和，最后结果实际就是 pairs1 中不同的 Int 总个数。</li>
-</ol>
-<h3 id="Job-逻辑执行图"><a href="#Job-逻辑执行图" class="headerlink" title="Job 逻辑执行图"></a>Job 逻辑执行图</h3><p>Job 的实际执行流程比用户头脑中的要复杂，需要先建立逻辑执行图（或者叫数据依赖图），然后划分逻辑执行图生成 DAG 型的物理执行图，然后生成具体 task 执行。分析一下这个 job 的逻辑执行图：</p>
-<p>使用 <code>RDD.toDebugString</code> 可以看到整个 logical plan （RDD 的数据依赖关系）如下</p>
-<pre class=" language-scala"><code class="language-scala">  MapPartitionsRDD<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> at groupByKey at GroupByTest<span class="token punctuation">.</span>scala<span class="token operator">:</span><span class="token number">51</span> <span class="token punctuation">(</span><span class="token number">36</span> partitions<span class="token punctuation">)</span>
-    ShuffledRDD<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> at groupByKey at GroupByTest<span class="token punctuation">.</span>scala<span class="token operator">:</span><span class="token number">51</span> <span class="token punctuation">(</span><span class="token number">36</span> partitions<span class="token punctuation">)</span>
-      FlatMappedRDD<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> at flatMap at GroupByTest<span class="token punctuation">.</span>scala<span class="token operator">:</span><span class="token number">38</span> <span class="token punctuation">(</span><span class="token number">100</span> partitions<span class="token punctuation">)</span>
-        ParallelCollectionRDD<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> at parallelize at GroupByTest<span class="token punctuation">.</span>scala<span class="token operator">:</span><span class="token number">38</span> <span class="token punctuation">(</span><span class="token number">100</span> partitions<span class="token punctuation">)</span>
-</code></pre>
-<p>用图表示就是：</p>
-<p><img src="https://raw.githubusercontent.com/koooolllll/picture/main/image-20220830220412680.png" alt="image-20220830220412680"></p>
-<p>Job实际流程图</p>
+<h2 id="参照透明性"><a href="#参照透明性" class="headerlink" title="参照透明性"></a>参照透明性</h2><p>无副作用是参照透明性（英语：Referential transparency）（英语：Referential Transparent）的必要非充分条件。</p>
 <blockquote>
-<p>需要注意的是 data in the partition 展示的是每个 partition 应该得到的计算结果，并不意味着这些结果都同时存在于内存中。</p>
+<p>参照透明意味着一个表达式（例如一次函数调用）可以被替换为它的值。这需要该表达式是纯的，也就是说该表达式必须是完全确定的（相同的输入总是导致相同的输出）而且没有副作用。</p>
 </blockquote>
-<p>根据上面的分析可知：</p>
-<ul>
-<li>用户首先 init 了一个0-99 的数组： <code>0 until numMappers</code></li>
-<li>parallelize() 产生最初的 ParrallelCollectionRDD，每个 partition 包含一个整数 i。</li>
-<li>执行 RDD 上的 transformation 操作（这里是 flatMap）以后，生成 FlatMappedRDD，其中每个 partition 包含一个 Array[(Int, Array[Byte])]。</li>
-<li>第一个 count() 执行时，先在每个 partition 上执行 count，然后执行结果被发送到 driver，最后在 driver 端进行 sum。</li>
-<li>由于 FlatMappedRDD 被 cache 到内存，因此这里将里面的 partition 都换了一种颜色表示。</li>
-<li>groupByKey 产生了后面两个 RDD，为什么产生这两个在后面章节讨论。</li>
-<li>如果 job 需要 shuffle，一般会产生 ShuffledRDD。该 RDD 与前面的 RDD 的关系类似于 Hadoop 中 mapper 输出数据与 reducer 输入数据之间的关系。</li>
-<li>MapPartitionsRDD 里包含 groupByKey() 的结果。</li>
-<li>最后将 MapPartitionsRDD 中的 每个value（也就是Array[Byte]）都转换成 Iterable 类型。</li>
-<li>最后的 count 与上一个 count 的执行方式类似。</li>
-</ul>
-<p><strong>可以看到逻辑执行图描述的是 job 的数据流：job 会经过哪些 transformation()，中间生成哪些 RDD 及 RDD 之间的依赖关系。</strong></p>
-<h3 id="Job-物理执行图"><a href="#Job-物理执行图" class="headerlink" title="Job 物理执行图"></a>Job 物理执行图</h3><p>逻辑执行图表示的是数据上的依赖关系，不是 task 的执行图。在 Hadoop 中，用户直接面对 task，mapper 和 reducer 的职责分明：一个进行分块处理，一个进行 aggregate。Hadoop 中 整个数据流是固定的，只需要填充 map() 和 reduce() 函数即可。Spark 面对的是更复杂的数据处理流程，数据依赖更加灵活，很难将数据流和物理 task 简单地统一在一起。因此 Spark 将数据流和具体 task 的执行流程分开，并设计算法将逻辑执行图转换成 task 物理执行图，转换算法后面的章节讨论。</p>
-<p>针对这个 job，我们先画出它的物理执行 DAG 图如下：</p>
-<p><img src="https://raw.githubusercontent.com/koooolllll/picture/main/image-20220830220258844.png"></p>
-<p>Job 物理执行图</p>
-<p>可以看到 GroupByTest 这个 application 产生了两个 job，第一个 job 由第一个 action（也就是 <code>pairs1.count</code>）触发产生，分析一下第一个 job：</p>
-<ul>
-<li>整个 job 只包含 1 个 stage（不明白什么是stage没关系，后面章节会解释，这里只需知道有这样一个概念）。</li>
-<li>Stage 0 包含 100 个 ResultTask。</li>
-<li>每个 task 先计算 flatMap，产生 FlatMappedRDD，然后执行 action() 也就是 count()，统计每个 partition 里 records 的个数，比如 partition 99 里面只含有 9 个 records。</li>
-<li>由于 pairs1 被声明要进行 cache，因此在 task 计算得到 FlatMappedRDD 后会将其包含的 partitions 都 cache 到 executor 的内存。</li>
-<li>task 执行完后，driver 收集每个 task 的执行结果，然后进行 sum()。</li>
-<li>job 0 结束。</li>
-</ul>
-<p>第二个 job 由 <code>pairs1.groupByKey(numReducers).count</code> 触发产生。分析一下该 job：</p>
-<ul>
-<li>整个 job 包含 2 个 stage。</li>
-<li>Stage 1 包含 100 个 ShuffleMapTask，每个 task 负责从 cache 中读取 pairs1 的一部分数据并将其进行类似 Hadoop 中 mapper 所做的 partition，最后将 partition 结果写入本地磁盘。</li>
-<li>Stage 0 包含 36 个 ResultTask，每个 task 首先 shuffle 自己要处理的数据，边 fetch 数据边进行 aggregate 以及后续的 mapPartitions() 操作，最后进行 count() 计算得到 result。</li>
-<li>task 执行完后，driver 收集每个 task 的执行结果，然后进行 sum()。</li>
-<li>job 1 结束。</li>
-</ul>
-<p>可以看到物理执行图并不简单。与 MapReduce 不同的是，Spark 中一个 application 可能包含多个 job，每个 job 包含多个 stage，每个 stage 包含多个 task。<strong>怎么划分 job，怎么划分 stage，怎么划分 task 等等问题会在后面的章节介绍。</strong></p>
-<h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>到这里，我们对整个系统和 job 的生成与执行有了概念，而且还探讨了 cache 等特性。<br> 接下来的章节会讨论 job 生成与执行涉及到的系统核心功能，包括：</p>
-<ol>
-<li>如何生成逻辑执行图</li>
-<li>如何生成物理执行图</li>
-<li>如何提交与调度 Job</li>
-<li>Task 如何生成、执行与结果处理</li>
-<li>如何进行 shuffle</li>
-<li>cache机制</li>
-<li>broadcast 机制</li>
-</ol>
-<p><em>引用链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1ce1c4c7126a">https://www.jianshu.com/p/1ce1c4c7126a</a></em></p>
+<h2 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h2><pre class=" language-scala"><code class="language-scala">f<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">return</span> x <span class="token operator">+</span> <span class="token number">1</span> 
+<span class="token punctuation">}</span>
+</code></pre>
+<p><em>f(x)函数就是纯函数。</em></p>
+<pre class=" language-scala"><code class="language-scala">a <span class="token operator">=</span> <span class="token number">0</span> 
+q<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    b <span class="token operator">=</span> a 
+<span class="token punctuation">}</span>
+</code></pre>
+<p><em>q(x)访问了函数外部的变量。q(x)是非纯函数。</em></p>
+<pre class=" language-scala"><code class="language-scala">p<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    print“hello” 
+<span class="token punctuation">}</span>
+</code></pre>
+<p><em>p(x)通过I&#x2F;O API输出了一个字符串。p(x)是非纯函数。</em></p>
+<pre class=" language-scala"><code class="language-scala">c<span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token comment" spellcheck="true">// 假设readConfig()函数为I/O API的函數</span>
+    <span class="token comment" spellcheck="true">// 读取配置文件 </span>
+    data <span class="token operator">=</span> readConfig<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+<span class="token punctuation">}</span>
+</code></pre>
+<p><em>c(x)通过I&#x2F;O API读取了配置文件。c(x)是非纯函数。</em></p>
+<p>函数内部有隐式（Implicit）的数据流，这种情况叫做<strong>副作用</strong>（Side Effect）。上述的I&#x2F;O，外部变量等，都可以归为副作用。因此，纯函数的定义也可以写为“没有副作用的函数”。</p>
+<p>I&#x2F;O API 可以看作是一种特殊的全局变量。文件、屏幕、数据库等输入输出结构可以看作是独立于运行环境之外的系统外全局变量，而不是应用程序自己定义的全局变量。</p>
 
                 
             </div>
@@ -648,7 +560,7 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://kanaikee.com/2022/08/30/spark-zhi-xing-yuan-li/">http://kanaikee.com/2022/08/30/spark-zhi-xing-yuan-li/</a>
+                    <a href="http://kanaikee.com/2022/08/31/scala-han-shu-shi-bian-cheng/">http://kanaikee.com/2022/08/31/scala-han-shu-shi-bian-cheng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -686,8 +598,8 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Spark/">
-                                    <span class="chip bg-color">Spark</span>
+                                <a href="/tags/Scala/">
+                                    <span class="chip bg-color">Scala</span>
                                 </a>
                             
                         </div>
@@ -857,9 +769,10 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/08/31/scala-han-shu-shi-bian-cheng/">
                     <div class="card-image">
@@ -877,9 +790,9 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-31
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-31
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -888,6 +801,7 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -906,13 +820,13 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/30/scala-lei/">
+                <a href="/2022/08/30/spark-zhi-xing-yuan-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Scala类、对象、继承和trait">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Spark执行原理">
                         
-                        <span class="card-title">Scala类、对象、继承和trait</span>
+                        <span class="card-title">Spark执行原理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -936,8 +850,8 @@ bin<span class="token operator">/</span>run<span class="token operator">-</span>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Scala/">
-                        <span class="chip bg-color">Scala</span>
+                    <a href="/tags/Spark/">
+                        <span class="chip bg-color">Spark</span>
                     </a>
                     
                 </div>
